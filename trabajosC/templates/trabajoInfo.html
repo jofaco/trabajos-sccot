@@ -32,7 +32,7 @@
         <div class="col-6 ">
             <h5 >Autor de correspondencia: {{ object.Autor_correspondencia|safe }}</h5>
             <h5 >Correo de autor: {{ object.Autor_correspondencia.email|safe }}</h5>
-
+            <h5 >Telefono de autor: {{ object.Autor_correspondencia.celular|safe }}</h5>
             <h5 >institución principal: <small>{{ object.institucion_principal |safe}}</small></h5>
         </div>
         <div class="col-2 ">
@@ -43,7 +43,24 @@
         </div>
     </div>
     <br>    
-    
+    <div class="container">
+        
+        {% if autores_ingreso %}
+            <div class="row ${1| ,row-cols-2,row-cols-3, auto,justify-content-md-center,|}">
+                
+                {% for autor in autores_ingreso %}
+                <div class="col-lg-4 col-md-6 col-12 align-content-center">
+                    <h5 >Autor de ingreso: {{autor.autorIN}}</h5>
+                    <h5 >Correo de autor: {{ autor.autorIN.email|safe }}</h5>
+                    <h5 >Telefono de autor: {{ autor.autorIN.celular|safe }}</h5>
+                </div>
+                {% endfor %}
+                    
+            </div>
+        {% endif %}      
+        
+    </div>
+    <br>
     <div class="container ">
         <h5 >OBSERVACIONES: <small>{{ object.observaciones |safe}}</small></h5>
         <br>

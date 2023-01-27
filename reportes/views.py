@@ -100,6 +100,7 @@ class reporteTC(LoginRequiredMixin,IsSuperuserMixin,TemplateView):
                         i.subtipo_trabajo,
                         i.Autor_correspondencia.get_full_name(),
                         i.Autor_correspondencia.email,
+                        i.Autor_correspondencia.celular,
                         autores[j],
                         i.institucion_principal.institucion,
                         i.Autor_correspondencia.ciudad,

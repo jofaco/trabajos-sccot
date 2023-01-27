@@ -391,6 +391,8 @@ class TrabajoDetailView(LoginRequiredMixin,IsSuperuserMixin,DetailView):
         context['evaluadores'] = Trabajos_has_evaluadores.objects.filter(trabajo_id = self.kwargs['pk'] )
         context['palabrasC'] = Trabajos_has_palabras.objects.filter(trabajo_id = self.kwargs['pk'] )
         context['keywords'] = Trabajos_has_Keywords.objects.filter(trabajo_id = self.kwargs['pk'] )
+        context['autores_ingreso'] = Trabajos_has_autoresIngreso.objects.filter(trabajo_id = self.kwargs['pk'] )
+
 
         return context
  

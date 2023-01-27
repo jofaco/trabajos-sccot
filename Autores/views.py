@@ -38,6 +38,7 @@ class registrarAutor(LoginRequiredMixin,IsSuperuserMixin,CreateView):
     model = Autores
     form_class= AutoresForm
     template_name='createAutor.html'
+    success_url = reverse_lazy('inicio')
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
