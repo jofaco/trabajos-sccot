@@ -52,16 +52,15 @@ def index(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
 
-            trabajos = Trabajos.objects.filter(curso__in= Cursos.objects.filter(estado=True)).only("identificador","tipo_trabajo", "subtipo_trabajo","titulo","Autor_correspondencia", "institucion_principal","curso")
+            trabajos = Trabajos.objects.filter(curso__in= Cursos.objects.filter(estado=True)).only("identificador","tipo_trabajo", "titulo","Autor_correspondencia", "institucion_principal","curso")
 
-            autores = Autores.objects.all().defer( "especialidad","direccion")
+            autores = Autores.objects.filter(miembro = "Si").defer( "especialidad","direccion")
             cursos = Cursos.objects.all()
             
-            autores_trab = Trabajos_has_autores.objects.all()
-            palabras_trab = Trabajos_has_palabras.objects.all()
+            autores_trab = Trabajos_has_autores.objects.filter(trabajo__in = trabajos)
+            palabras_trab = Trabajos_has_palabras.objects.filter(trabajo__in = trabajos)
 
-            manuscritos = Manuscritos.objects.all().select_related('trabajo')
-            
+            manuscritos = Manuscritos.objects.filter(trabajo__in = trabajos)
             return render(request,'admin.html', {'autores':autores,'trabajos':trabajos,'cursos':cursos,'manuscritos':manuscritos,'autores_trab':autores_trab,'palab_trab':palabras_trab, 'formEspecialidad' : EspecialidadesForm()})
         else:
             return redirect('misEvaluaciones')
