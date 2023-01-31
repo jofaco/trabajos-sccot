@@ -61,7 +61,7 @@ class Cursos(models.Model):
     """
     Cursos disponibles para subir el trabajo científico.
     """
-    nombre_curso = models.CharField(max_length=45)
+    nombre_curso = models.CharField(max_length=100)
     especialidad = models.ForeignKey(Especialidades, on_delete=models.CASCADE)
     fecha_inicio = models.DateField()
     fecha_fin_evaluacion = models.DateField(null=True, blank=True)

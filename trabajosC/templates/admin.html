@@ -39,8 +39,8 @@
     <hr>
     <div class="container botonesNav">
         <div class="btn-group-lg" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" >
-            <label class="btn btn-outline-primary" for="btnradio1">Autores</label>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+            <a class="btn btn-outline-primary" for="btnradio4" href="{% url 'autor_list' %}">Autores</a>
           
             <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked>
             <label class="btn btn-outline-primary" for="btnradio2">Trabajos</label>
@@ -65,15 +65,7 @@
         <div class="modal fade contenedor" id="editManus_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         </div>
     </div>
-    <div class="container-fluid " id="contenedorAutores" hidden>
-        {% include 'tablas/autoresList.html' %}
-        <div class="modal fade contenedor" id="crearAutor_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: scroll;">
-        </div>
-        <div class="modal fade contenedor" id="editAutor_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        </div>
-        <div class="modal fade contenedor" id="eliminarAutor_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        </div>
-    </div>
+
     <div class="container-fluid " id="contenedorCursos" hidden>
         {% include 'tablas/cursosList.html' %}
         <div class="modal fade contenedor" id="crearCurso_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: scroll;">
@@ -108,21 +100,6 @@
             });             
             function abrir_modal_editManus(url){
                 $('#editManus_Modal').load(url, function (){
-                    $(this).modal('show');
-                });
-            }
-            function abrir_modal_createAutor(url){
-                $('#crearAutor_Modal').load(url, function (){
-                    $(this).modal('show');
-                });
-            }           
-            function abrir_modal_editAutor(url){
-                $('#editAutor_Modal').load(url, function (){
-                    $(this).modal('show');
-                });
-            }
-            function abrir_modal_deleteAutor(url){
-                $('#eliminarAutor_Modal').load(url, function (){
                     $(this).modal('show');
                 });
             }

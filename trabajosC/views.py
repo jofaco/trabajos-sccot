@@ -22,7 +22,6 @@ from trabajosC.models import Autores, Cursos, Especialidades, Instituciones, Key
 
 from trabajosC.funciones.funciones1 import asignar_plantilla, convert_to_pdf_wd ,generate_pdf_linux
 from trabajosC.funciones.funciones2 import crear_user, email_confirmTC, handle_uploaded_file
-from trabajosC.funciones.funciones1 import convert_to_pdf_wd ,generate_pdf_linux
 from usuario.mixins import IsSuperuserMixin
 # Create your views here.
 def index(request):
@@ -54,14 +53,13 @@ def index(request):
 
             trabajos = Trabajos.objects.filter(curso__in= Cursos.objects.filter(estado=True)).only("identificador","tipo_trabajo", "titulo","Autor_correspondencia", "institucion_principal","curso")
 
-            autores = Autores.objects.filter(miembro = "Si").defer( "especialidad","direccion")
             cursos = Cursos.objects.all()
             
-            autores_trab = Trabajos_has_autores.objects.filter(trabajo__in = trabajos)
-            palabras_trab = Trabajos_has_palabras.objects.filter(trabajo__in = trabajos)
+            autores_trab = Trabajos_has_autores.objects.filter(trabajo__in = trabajos).select_related('trabajo')
+            palabras_trab = Trabajos_has_palabras.objects.filter(trabajo__in = trabajos).select_related('trabajo')
 
-            manuscritos = Manuscritos.objects.filter(trabajo__in = trabajos)
-            return render(request,'admin.html', {'autores':autores,'trabajos':trabajos,'cursos':cursos,'manuscritos':manuscritos,'autores_trab':autores_trab,'palab_trab':palabras_trab, 'formEspecialidad' : EspecialidadesForm()})
+            manuscritos = Manuscritos.objects.filter(trabajo__in = trabajos).select_related('trabajo')
+            return render(request,'admin.html', {'trabajos':trabajos,'cursos':cursos,'manuscritos':manuscritos,'autores_trab':autores_trab,'palab_trab':palabras_trab, 'formEspecialidad' : EspecialidadesForm()})
         else:
             return redirect('misEvaluaciones')
     else:
@@ -145,10 +143,8 @@ class registrarTrabajo(CreateView):
                     data.append(item)
                     
             elif action == 'search_curso':
-                print("prueba")
                 term = request.POST['curso_id']
                 curso = Cursos.objects.get(id=term)
-                print(term)
                 if curso.fecha_fin < dtime.date.today():
                     data['error'] = 'No es posible registrar el trabajo, ha excedido la fecha límite'
                     return JsonResponse(data, safe=False)
