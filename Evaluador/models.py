@@ -188,7 +188,7 @@ class plantillaCOHORTES(models.Model):
     Descripcion_de_justificacion=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
     Descripcion_de_objetivos = models.IntegerField(choices=CALIFICACION,default=0,blank=False)
     daprpi = models.IntegerField(choices=CALIFICACION,default=0,blank=False)
-    Comite_de_etica=models.CharField(max_length=2, choices=CHOICES,blank=False,default='SI', help_text='Métodos')
+    comite_de_etica=models.CharField(max_length=2, choices=CHOICES,blank=False,default='SI', help_text='Métodos')
     dmr=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
     mpddred=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
     ecs=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
@@ -257,3 +257,50 @@ class plantillaEP(models.Model):
 
     def __str__(self):
         return self.trabajo.titulo
+
+class plantillaANATOMICOyTC(models.Model):
+    titulo=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    Resumen_estructurado=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    Palabras_claves=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    Descripcion_de_justificacion=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    Descripcion_de_objetivos = models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    daprpi = models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    comite_de_etica=models.CharField(max_length=2,choices=CHOICES,blank=False,default='SI', help_text='Métodos')
+    def_muestra=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    dcpdcd=models.IntegerField(choices=CALIFICACION,default=0,blank=False, help_text='Resultados')
+    dcde =models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    dchape=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    peprfce=models.IntegerField(choices=CALIFICACION,default=0,blank=False, help_text='Discusión')
+    sarclr =models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    lrcdpcr =models.IntegerField(choices=CALIFICACION,default=0,blank=False,)
+    avear =models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    comentario=models.TextField(null=True, blank=True)
+    calificacion = models.FloatField(null=True, blank=True)
+    trabajo = models.ForeignKey(Trabajos, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.trabajo.titulo
+
+class plantillaVALIDACIONESCALAS(models.Model):
+    titulo=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    Resumen_estructurado=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    Palabras_claves=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    Descripcion_de_justificacion=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    Descripcion_de_objetivos = models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    daprpi = models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    comite_de_etica=models.CharField(max_length=2,choices=CHOICES,blank=False,default='SI', help_text='Métodos')
+    ptct=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    dpeupcpv=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    dtmape=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    cpoevnm=models.IntegerField(choices=CALIFICACION,default=0,blank=False, help_text='Resultados')
+    dcdp =models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    rsapps=models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    peprfce=models.IntegerField(choices=CALIFICACION,default=0,blank=False, help_text='Discusión')
+    sarclr =models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    lrcdpcr =models.IntegerField(choices=CALIFICACION,default=0,blank=False,)
+    acar =models.IntegerField(choices=CALIFICACION,default=0,blank=False)
+    comentario=models.TextField(null=True, blank=True)
+    calificacion = models.FloatField(null=True, blank=True)
+    trabajo = models.ForeignKey(Trabajos, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
