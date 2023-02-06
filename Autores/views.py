@@ -125,7 +125,7 @@ def designarEvaluador(request,pk):
         :redirect: Redirecciona al index.
     """
     Autores.objects.filter(id = pk).update(role_id = 2)
-    return redirect('inicio')
+    return redirect('autor_list')
 
 @login_required
 def eliminarEvaluador(request,pk):
@@ -139,7 +139,7 @@ def eliminarEvaluador(request,pk):
         :redirect: Redirecciona al index.
     """
     Autores.objects.filter(id = pk).update(role_id = None)
-    return redirect('inicio')
+    return redirect('autor_list')
 
 class AutoresListView(LoginRequiredMixin,IsSuperuserMixin, ListView):
     ''' Clase ListView para listar los autores. 
