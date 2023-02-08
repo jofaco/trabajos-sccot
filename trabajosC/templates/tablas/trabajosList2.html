@@ -13,7 +13,6 @@
               <th ><center>Autores</center></th>
               <th >Institucion principal</th>
               <th >Palabras Claves</th>
-              <th ><center>Manuscritos</center></th>
               <th >Curso</th>
               <th >Calificación</th>
               <th ><center>Acciones</center></th>
@@ -45,31 +44,13 @@
                         {%  endif   %}
                         {% endfor %}
                     </td>
-                    <td>
-                        {% for manuscrito in manuscritos %}
-                        {% if manuscrito.trabajo_id == object.id %}
-                        <ul>
-                            <li>
-                                <a href="media/{{ manuscrito.manuscrito }}">{{manuscrito.tituloM}}</a>
-                            </li>
-                        </ul>
-                        {%  endif   %}
-                        {% endfor %}
-                    </td>
                     <td>{{object.curso}}</td>
                     <td>{{object.calificacion}}</td>
                         
                     <td>
                         <div class="d-grid gap-2 col-12 mx-auto"> 
                             <a href="{% url 'detalleTrabajo' object.id %}" class="btn btn-success"> <i class="fa-solid fa-file"></i> VER</a>
-                            {% for manuscrito in manuscritos %}
-                            {% if manuscrito.trabajo_id == object.id and '.doc' in manuscrito.tituloM %}
-                            <button onclick="abrir_modal_editManus(`{% url 'editar_manuscrito' manuscrito.id %}`)" class="btn btn-primary"><i class="fa-solid fa-file-edit"></i> Editar Manuscrito</button>
-                            {%  endif   %}
-                            {% if manuscrito.trabajo_id == object.id and '.ppt' in manuscrito.tituloM or manuscrito.trabajo_id == object.id and '.mp4' in manuscrito.tituloM or manuscrito.trabajo_id == object.id and '.mov' in manuscrito.tituloM or manuscrito.trabajo_id == object.id and '.avi' in manuscrito.tituloM %}
-                            <button onclick="abrir_modal_editManus(`{% url 'editar_manuscrito' manuscrito.id %}`)" class="btn btn-primary"><i class="fa-solid fa-file-edit"></i> Editar Manuscrito</button>
-                            {%  endif   %}
-                            {% endfor %}                      
+                         <button onclick="abrir_modal_evaluador(`{% url 'asignarEvaluador' object.id %}`)"  class="btn btn-warning"><i class="fa-solid fa-hand-pointer"></i> Asignar Evaluador</button>                      
                         </div>                    
                     </td>
                 </tr>

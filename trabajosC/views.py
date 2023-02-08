@@ -47,7 +47,7 @@ def index(request):
         1. Vista de aministrador con la lista de las instancias.
         2. Vista del formulario de registro de trabajo si no es administrador.
     """
-    #Validación si el usuario logeado es superuser(Admin)
+    #Validación si el usuario logueado es superuser(Admin)
     if request.user.is_authenticated:
         if request.user.is_superuser:
 
@@ -58,8 +58,23 @@ def index(request):
             autores_trab = Trabajos_has_autores.objects.filter(trabajo__in = trabajos).select_related('trabajo')
             palabras_trab = Trabajos_has_palabras.objects.filter(trabajo__in = trabajos).select_related('trabajo')
 
+            return render(request,'admin2.html', {'trabajos':trabajos,'cursos':cursos,'autores_trab':autores_trab,'palab_trab':palabras_trab, 'formEspecialidad' : EspecialidadesForm()})
+        else:
+            return redirect('misEvaluaciones')
+    else:
+        return redirect('create_Trabajo')
+
+def index2(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+
+            trabajos = Trabajos.objects.filter(curso__in= Cursos.objects.filter(estado=True)).only("identificador","tipo_trabajo", "titulo","Autor_correspondencia", "institucion_principal","curso")
+            
+            autores_trab = Trabajos_has_autores.objects.filter(trabajo__in = trabajos).select_related('trabajo')
+            palabras_trab = Trabajos_has_palabras.objects.filter(trabajo__in = trabajos).select_related('trabajo')
+
             manuscritos = Manuscritos.objects.filter(trabajo__in = trabajos).select_related('trabajo')
-            return render(request,'admin.html', {'trabajos':trabajos,'cursos':cursos,'manuscritos':manuscritos,'autores_trab':autores_trab,'palab_trab':palabras_trab, 'formEspecialidad' : EspecialidadesForm()})
+            return render(request,'admin.html', {'trabajos':trabajos,'manuscritos':manuscritos,'autores_trab':autores_trab,'palab_trab':palabras_trab, 'formEspecialidad' : EspecialidadesForm()})
         else:
             return redirect('misEvaluaciones')
     else:
@@ -543,7 +558,7 @@ class ManuscritoEdit(LoginRequiredMixin,IsSuperuserMixin,UpdateView):
     model = Manuscritos
     form_class = ManuscritosForm
     template_name = 'manus_editModal.html'
-    success_url = reverse_lazy('inicio')
+    success_url = reverse_lazy('list_trabajos_m')
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -568,7 +583,7 @@ class ManuscritoEdit(LoginRequiredMixin,IsSuperuserMixin,UpdateView):
                 messages.success(request, 'El documento ha sido actualizado!')
             else:
                 messages.error(request, 'El documento no tiene el mismo nombre que el subido por el autor!')
-            return redirect('inicio')
+            return redirect('list_trabajos_m')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)        

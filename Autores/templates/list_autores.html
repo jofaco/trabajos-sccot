@@ -40,10 +40,13 @@
         <a class="btn btn-outline-primary" for="btnradio1" href="{% url 'autor_list'  %}">Autores</a>
       
         <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" >
-        <a class="btn btn-outline-primary" for="btnradio2" href="{% url 'inicio'  %}">Trabajos</a>
+        <a class="btn btn-outline-primary" for="btnradio2" href="{% url 'inicio'  %}">Trabajos Principal</a>
       
         <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
         <a class="btn btn-outline-primary" for="btnradio3" href="{% url 'inicio'  %}">Cursos</a>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" >
+        <a class="btn btn-outline-primary" for="btnradio2" href="{% url 'list_trabajos_m'  %}">Trabajos con archivos</a>
       
         <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
         <a class="btn btn-outline-primary" for="btnradio4" href="{% url 'user:user_list'  %}">Usuarios</a>

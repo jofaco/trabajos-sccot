@@ -7,6 +7,7 @@ from trabajosC import views
 urlpatterns = [
        
     path('',views.index, name='inicio'),
+    path('trabajos_manuscritos/',views.index2, name='list_trabajos_m'),
     re_path('^ajax_especialidades/$', views.ajax_especialidades, name='ajax_especialidades'),
     path('create_Trabajo/', views.registrarTrabajo.as_view(), name='create_Trabajo'),
     path('Detalle_Trabajo/<int:pk>/',views.TrabajoDetailView.as_view(), name='detalleTrabajo'),
