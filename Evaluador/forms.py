@@ -17,6 +17,7 @@ CHOICES =(
     ("cohortesForm", "Plantilla Cohortes"),
     ("ANATOMICOForm", "Plantilla Anatómico y técnica en cadáver"),
     ("validacionEscalasForm", "Plantilla Validación de escalas - Evidencia"),
+    ("CongresoForm", "Plantilla Especial - Congreso"),
     ("epForm", "Plantilla EPoster"),
 )
 
@@ -531,5 +532,44 @@ class validacionEscalasForm(ModelForm):
             'sarclr':forms.Select(attrs={'class':'form-control'}),
             'lrcdpcr':forms.Select(attrs={'class':'form-control'}),
             'acar':forms.Select(attrs={'class':'form-control'}),
+            'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
+        }
+
+class CONGRESOForm(ModelForm):
+    class Meta:
+        model= plantillaCONGRESO
+        exclude = ('trabajo','user','calificacion')
+
+        labels = {
+            'titulo' : 'Título',
+            'Resumen_estructurado' : 'Resumen estructurado',
+            'Palabras_claves':'Palabras claves',
+            'Descripcion_de_justificacion':'Descripción de la justificación',
+            'Descripcion_de_objetivos': 'Descripción de objetivos',
+            'daprpi': 'Diseño adecuado para responder pregunta de investigación',
+            'comite_de_etica':'Comité de ética',
+            'dcve':'Definición clara de variables de estudio',
+            'Tam_muestra':'Tamaño de Muestra',
+            'sarclr':'Suficiente análisis de los resultados, comparación con la literatura más reciente',
+            'lrcdpcr':'Las referencias citadas son discutidas y puestas en contexto con los resultados',
+            'asevc':'Análisis de sesgos, efecto de variables de confusión',
+            'avear':'Análisis de la validez externa (aplicabilidad) de los resultados',
+            'comentario':'Observaciones y/o comentarios',
+        }
+        widgets = {
+
+            'titulo':forms.Select(attrs={'class':'form-control'}),
+            'Resumen_estructurado':forms.Select(attrs={'class':'form-control'}),
+            'Palabras_claves':forms.Select(attrs={'class':'form-control'}),
+            'Descripcion_de_justificacion':forms.Select(attrs={'class':'form-control'}),
+            'Descripcion_de_objetivos':forms.Select(attrs={'class':'form-control'}),
+            'daprpi':forms.Select(attrs={'class':'form-control'}),
+            'comite_de_etica':forms.Select(attrs={'class':'form-control'}),
+            'dcve':forms.Select(attrs={'class':'form-control'}),
+            'Tam_muestra':forms.Select(attrs={'class':'form-control'}),
+            'sarclr':forms.Select(attrs={'class':'form-control'}),
+            'lrcdpcr':forms.Select(attrs={'class':'form-control'}),
+            'asevc':forms.Select(attrs={'class':'form-control'}),
+            'avear':forms.Select(attrs={'class':'form-control'}),
             'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
         }

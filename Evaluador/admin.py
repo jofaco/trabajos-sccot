@@ -31,6 +31,10 @@ class plantillaVALIDACIONESCALASAdmin(admin.ModelAdmin):
 class plantillaANATOMICOyTCAdmin(admin.ModelAdmin):
     list_display=("calificacion","trabajo","user")
 
+
+class plantillaCONGRESOAdmin(admin.ModelAdmin):
+    list_display=("calificacion","trabajo","user")
+
 admin.site.register(plantillaECC,plantillaECCAdmin)
 admin.site.register(plantillaPruebasDX,plantillaPruebasDXAdmin)
 admin.site.register(plantillaRSyMA,plantillaRSyMAAdmin)
@@ -41,3 +45,4 @@ admin.site.register(plantillaCOHORTES,plantillaCOHORTESAdmin)
 admin.site.register(plantillaEP,plantillaEPOSTERAdmin)
 admin.site.register(plantillaANATOMICOyTC,plantillaVALIDACIONESCALASAdmin)
 admin.site.register(plantillaVALIDACIONESCALAS,plantillaANATOMICOyTCAdmin)
+admin.site.register(plantillaCONGRESO,plantillaCONGRESOAdmin)

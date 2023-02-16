@@ -75,15 +75,8 @@
                         </div>
                     </div>
                     <br>
-                    {% for anexo in anexos %}                        
-                        {% if anexo.trabajo_id == trabajo.trabajo.id %}
-                        Anexo: 
-                            <a href="../../media/{{anexo.tabla}}" class="btn btn-primary"><center><i class="fa-solid fa-file-arrow-down"></i>DESCARGAR</center></a>
-                            <br><br>
-                        {% endif %}
-                    {% endfor %}
-                    {% for manuscrito in manuscritos %}                    
-                                                
+                    
+                    {% for manuscrito in manuscritos %}
                     {% if manuscrito.trabajo_id == trabajo.trabajo.id and ".pdf" in manuscrito.tituloM  %}
                     <div id="Iframe-Master-CC-and-Rs" class="set-margin set-padding set-border set-box-shadow center-block-horiz">                
                         <div class="responsive-wrapper responsive-wrapper-wxh-572x612" >
@@ -102,6 +95,14 @@
                         <a href="../../media/{{manuscrito.manuscrito}}" class="btn btn-primary"><center><i class="fa-solid fa-file-arrow-down"></i>DESCARGAR</center></a>
                     </div>
                     {%  endif    %}
+                    {% endfor %}
+                    <br>
+                    {% for anexo in anexos %}                        
+                        {% if anexo.trabajo_id == trabajo.trabajo.id %}
+                        Anexo: 
+                            <a href="../../media/{{anexo.tabla}}" class="btn btn-primary"><center><i class="fa-solid fa-file-arrow-down"></i>DESCARGAR</center></a>
+                            <br><br>
+                        {% endif %}
                     {% endfor %}
                     <hr>
                 {% endif %}
@@ -141,6 +142,8 @@
     <div class="modal fade " id="plantilla8_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
     <div class="modal fade " id="plantilla9_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div>
+    <div class="modal fade " id="plantilla10_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
     <div class="modal fade " id="plantillaEP_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
@@ -191,6 +194,11 @@
             }
             function abrir_modal_plantilla9(url){
                 $('#plantilla9_Modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+            function abrir_modal_plantilla10(url){
+                $('#plantilla10_Modal').load(url, function (){
                     $(this).modal('show');
                 });
             }

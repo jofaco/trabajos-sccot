@@ -49,6 +49,7 @@ class TrabajosAsignados(LoginRequiredMixin,TemplateView):
             context['plantillaCORTETRANSVERSAL'] = plantillaCORTETRANSVERSAL.objects.all().select_related('trabajo')
             context['plantillaANATOMICOyTC'] = plantillaANATOMICOyTC.objects.all().select_related('trabajo')
             context['plantillaVALIDACIONESCALAS'] = plantillaVALIDACIONESCALAS.objects.all().select_related('trabajo')
+            context['plantillaCONGRESO'] = plantillaCONGRESO.objects.all().select_related('trabajo')
             context['plantillaEP'] = plantillaEP.objects.all().select_related('trabajo')
 
             return context
@@ -68,6 +69,7 @@ class TrabajosAsignados(LoginRequiredMixin,TemplateView):
             context['plantillaCORTETRANSVERSAL'] = plantillaCORTETRANSVERSAL.objects.filter(user=self.request.user).select_related('trabajo')
             context['plantillaANATOMICOyTC'] = plantillaANATOMICOyTC.objects.filter(user=self.request.user).select_related('trabajo')
             context['plantillaVALIDACIONESCALAS'] = plantillaVALIDACIONESCALAS.objects.filter(user=self.request.user).select_related('trabajo')
+            context['plantillaCONGRESO'] = plantillaCONGRESO.objects.filter(user=self.request.user).select_related('trabajo')
             context['plantillaEP'] = plantillaEP.objects.all().filter(user=self.request.user).select_related('trabajo')
             return context
 
@@ -612,6 +614,66 @@ class plantilla9_evaluacion(LoginRequiredMixin,UpdateView):
         context['nombreBtn'] = 'btnForm9'
         return context
         
+class plantilla9_evaluacion(LoginRequiredMixin,UpdateView):
+    ''' Clase UpdateView para realizar la evaluación de los TC. 
+
+    **Context** 
+       
+        :model:  Una instancia de la plantilla CONGRESO en donde se guardan los datos de la evaluación.
+        :form_class:  Formulario para la realizar la evaluación del TC.
+        :success_url:  Al ser exitoso la evaluación redirecciona al index del usuario.
+        
+    **Methods**
+        
+        :``get_context_data(self, **kwargs)``: 
+        
+            Envio del context al formulario de realizar la evaluación.
+    
+    **Template:**
+
+        :template_name: Template en donde está el formulario para la realizar la evaluación.
+            
+    '''
+
+    model = plantillaCONGRESO
+    form_class = CONGRESOForm
+    template_name = "plantillas_evaluacion/plantilla2.html"
+    success_url = reverse_lazy('misEvaluaciones')
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, instance=self.object)
+        if form.is_valid():
+            trabajo_Evaluador = Trabajos_has_evaluadores.objects.filter(trabajo_id = self.object.trabajo_id)
+            for obj in trabajo_Evaluador:
+                if obj.evaluador.email == self.object.user.email:
+                    d = form.cleaned_data
+                    d.pop('comite_de_etica')
+                    obj.comentario= d['comentario']
+                    d.pop('comentario')
+                    total = sum(d[x] for x in d) 
+                    promedio = round(total*100/(len(d)*5), 2)
+                    plantilla = form.save(commit=False)
+                    plantilla.calificacion = promedio
+                    plantilla.save()
+                    obj.calificacion= promedio
+                    obj.fecha_evaluacion= datetime.today()
+                    obj.save()
+                
+            return redirect('misEvaluaciones')
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)        
+        context['title'] = 'Caso especial.'
+        context['rutaUrl'] = 'evaluacionCONGRESO'
+        context['nombreForm'] ='frm10'
+        context['nombreBtn'] = 'btnForm10'
+        return context
 class plantillaEP_evaluacion(LoginRequiredMixin,UpdateView):
     ''' Clase UpdateView para realizar la evaluación de los TC. 
 

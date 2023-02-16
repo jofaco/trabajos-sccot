@@ -51,5 +51,7 @@ def asignar_plantilla(nombre,Trabajo, User):
         plantillaANATOMICOyTC.objects.create(trabajo=Trabajo, user= User)
     elif nombre == "validacionEscalasForm":
         plantillaVALIDACIONESCALAS.objects.create(trabajo=Trabajo, user= User)
+    elif nombre == "CongresoForm":
+        plantillaCONGRESO.objects.create(trabajo=Trabajo, user= User)
     else:
         plantillaEP.objects.create(trabajo=Trabajo, user= User)
