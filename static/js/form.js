@@ -6,7 +6,7 @@ let cajaTexto = document.getElementById("tabla")
 var pal_claves = "";
 var keywordsN = "";
 
-const MAXIMO_TAMANIO_BYTES = 2000000; // 1MB = 1 millón de bytes
+const MAXIMO_TAMANIO_BYTES = 5000000; // 1MB = 1 millón de bytes
 
 
 var trabajo={
