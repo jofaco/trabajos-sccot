@@ -614,7 +614,7 @@ class plantilla9_evaluacion(LoginRequiredMixin,UpdateView):
         context['nombreBtn'] = 'btnForm9'
         return context
         
-class plantilla9_evaluacion(LoginRequiredMixin,UpdateView):
+class plantilla10_evaluacion(LoginRequiredMixin,UpdateView):
     ''' Clase UpdateView para realizar la evaluación de los TC. 
 
     **Context** 
