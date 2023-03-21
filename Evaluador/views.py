@@ -513,8 +513,8 @@ class plantilla8_evaluacion(LoginRequiredMixin,UpdateView):
             
     '''
 
-    model = plantillaVALIDACIONESCALAS
-    form_class = validacionEscalasForm
+    model = plantillaANATOMICOyTC
+    form_class = plantillaANATOMICOForm
     template_name = "plantillas_evaluacion/plantilla2.html"
     success_url = reverse_lazy('misEvaluaciones')
 
