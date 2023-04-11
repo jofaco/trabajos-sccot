@@ -447,7 +447,7 @@ class epForm(ModelForm):
 
 class plantillaANATOMICOForm(ModelForm):
     class Meta:
-        model= plantillaSERIECASOS
+        model= plantillaANATOMICOyTC
         exclude = ('trabajo','user','calificacion')
 
         labels = {
