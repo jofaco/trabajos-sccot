@@ -77,7 +77,7 @@
                     <br>
                     
                     {% for manuscrito in manuscritos %}
-                    {% if manuscrito.trabajo_id == trabajo.trabajo.id and ".pdf" in manuscrito.tituloM and trabajo.tipo_trabajo == "Libre" or trabajo.tipo_trabajo == "Ingreso" %}
+                    {% if manuscrito.trabajo_id == trabajo.trabajo.id and ".pdf" in manuscrito.tituloM and trabajo.tipo_trabajo != "E-poster"  %}
                     <div id="Iframe-Master-CC-and-Rs" class="set-margin set-padding set-border set-box-shadow center-block-horiz">                
                         <div class="responsive-wrapper responsive-wrapper-wxh-572x612" >
                             <iframe id="inlineFrameExample" class="responsive-iframe" 
