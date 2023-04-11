@@ -77,9 +77,8 @@
                     <br>
                     
                     {% for manuscrito in manuscritos %}
-                    {% if manuscrito.trabajo_id == trabajo.trabajo.id and ".pdf" in manuscrito.tituloM  %}
-                    
-                        {% if "Libre" in trabajo.trabajo.tipo_trabajo  or  "Ingreso" in trabajo.trabajo.tipo_trabajo %}
+                    {% if manuscrito.trabajo_id == trabajo.trabajo.id and ".pdf" in manuscrito.tituloM and trabajo.trabajo.tipo_trabajo  != "E-poster" %}
+                    <div id="Iframe-Master-CC-and-Rs" class="set-margin set-padding set-border set-box-shadow center-block-horiz">
                             <div id="Iframe-Master-CC-and-Rs" class="set-margin set-padding set-border set-box-shadow center-block-horiz">                
                                 <div class="responsive-wrapper responsive-wrapper-wxh-572x612" >
                                     <iframe id="inlineFrameExample" class="responsive-iframe" 
@@ -92,18 +91,14 @@
                                     <a href="../../media/{{manuscrito.manuscrito}}" download="../../media/{{manuscrito.manuscrito}}" class="btn btn-primary" id="btn-download"><center><i class="fa-solid fa-file-arrow-down"></i>DESCARGAR</center></a>  
                                 </div>
                             </div>
-                        {% endif %}                    
-                    
                     {% elif manuscrito.trabajo_id == trabajo.trabajo.id and "pptx" in manuscrito.tituloM  %}
-                    <div class="d-grid gap-2 col-2 mx-auto">
-                        <a href="../../media/{{manuscrito.manuscrito}}" class="btn btn-primary"><center><i class="fa-solid fa-file-arrow-down"></i>DESCARGAR</center></a>
-                    </div>
-                    {%  endif    %}
-                    {% endfor %}
+                        <div class="d-grid gap-2 col-2 mx-auto">
+                            <a href="../../media/{{manuscrito.manuscrito}}" class="btn btn-primary"><center><i class="fa-solid fa-file-arrow-down"></i>DESCARGAR</center></a>
+                        </div>
                     {% elif manuscrito.trabajo_id == trabajo.trabajo.id and "mp4" in manuscrito.tituloM or "mov" in manuscrito.tituloM or "avi" in manuscrito.tituloM %}
-                    <div class="d-grid gap-2 col-2 mx-auto">
-                        <a href="../../media/{{manuscrito.manuscrito}}" class="btn btn-primary"><center><i class="fa-solid fa-file-arrow-down"></i>DESCARGAR</center></a>
-                    </div>
+                        <div class="d-grid gap-2 col-2 mx-auto">
+                            <a href="../../media/{{manuscrito.manuscrito}}" class="btn btn-primary"><center><i class="fa-solid fa-file-arrow-down"></i>DESCARGAR</center></a>
+                        </div>
                     {%  endif    %}
                     {% endfor %}
                     <br>
