@@ -468,26 +468,26 @@ class AsignarEvaluadorTC(LoginRequiredMixin,IsSuperuserMixin,UpdateView):
             elif plantillasF['plantilla'].value() == "0":
                 messages.warning(request, 'No ha seleccionado una plantilla de evaluación')
                 return redirect('inicio')
+            elif Trabajo.Autor_correspondencia == form.cleaned_data['evaluador']:
+                messages.error(request, 'No se puede asignar el evaluador '+ form.cleaned_data['evaluador'].get_full_name() +', es el autor principal del trabajo')
+                return redirect('inicio')
             else:
                 for obj in otros_autores:
-                    if obj.autor == form.cleaned_data['evaluador']:
+                    if obj.autor == form.cleaned_data['evaluador']:                        
                         contador +=1
-                if contador ==0 and Trabajo.Autor_correspondencia != form.cleaned_data['evaluador'] and (postfix=='docx' or postfix=='doc'):                    
+                if contador == 0  and (postfix=='docx' or postfix=='doc'):                    
                     for prev_evl in previews_evaluadores:
                         if prev_evl.evaluador == form.cleaned_data['evaluador']:
                             messages.error(request, 'No se puede asignar evaluador, ya fue asignado previamente')
                             return redirect('inicio')
                     id_evaluador= Autores.objects.get(id=form.cleaned_data['evaluador'].id)
-                    #if id_evaluador.id != 2885 and id_evaluador.id !=2886:
-                    #    messages.error(request, 'Esta en entorno de pruebas, no puede asignar otro evaluador')
-                    #    return redirect('inicio')
                     user = crear_user(id_evaluador.id,fecha_fin_eva,Trabajo.titulo)
                     asignar_plantilla(plantillasF['plantilla'].value(),Trabajo,user)
                     ruta_pdf = 'manuscritos/'+nombre_curso+'/'+file_name+".pdf"
-                    consultaM = Manuscritos.objects.filter(trabajo = Trabajo).filter(tituloM = file_name+'.pdf').filter(trabajo = Trabajo)
+                    consultaM = Manuscritos.objects.filter(trabajo = Trabajo).filter(tituloM = file_name+'.pdf')
                     if not consultaM:         
-                        #convert_to_pdf_wd(manus_path+manuscrito1.tituloM, out_folder)
-                        generate_pdf_linux(manus_path+manuscrito1.tituloM, out_folder)
+                        convert_to_pdf_wd(manus_path+manuscrito1.tituloM, out_folder)
+                        #generate_pdf_linux(manus_path+manuscrito1.tituloM, out_folder)
                         obj = Manuscritos(
                             tituloM = file_name+'.pdf',
                             manuscrito = ruta_pdf,
@@ -498,24 +498,21 @@ class AsignarEvaluadorTC(LoginRequiredMixin,IsSuperuserMixin,UpdateView):
                     T_has_E.trabajo_id = Trabajo.id
                     T_has_E.save()
                     messages.success(request, 'Evaluador asignado con exito')
-                elif contador ==0 and Trabajo.Autor_correspondencia != form.cleaned_data['evaluador'] and postfix=='pptx' or postfix=='ppt' or postfix=='mp4' or postfix=='mov' or postfix=='avi':
+                elif contador == 0  and (postfix=='pptx' or postfix=='ppt' or postfix=='mp4' or postfix=='mov' or postfix=='avi'):
 
                     for prev_evl in previews_evaluadores:
                         if prev_evl.evaluador == form.cleaned_data['evaluador']:
                             messages.error(request, 'No se puede asignar evaluador, ya fue asignado previamente')
                             return redirect('inicio')
                     id_evaluador= Autores.objects.get(id=form.cleaned_data['evaluador'].id)
-                    #if id_evaluador.id != 2885 and id_evaluador.id !=2886:
-                    #    messages.error(request, 'Esta en entorno de pruebas, no puede asignar otro evaluador')
-                    #    return redirect('inicio')
                     user = crear_user(id_evaluador.id,fecha_fin_eva,Trabajo.titulo)
                     asignar_plantilla(plantillasF['plantilla'].value(),Trabajo,user)
                     if 'ppt' in postfix:                        
                         ruta_pdf = 'manuscritos/'+nombre_curso+'/'+file_name+".pdf"
-                        consultaM = Manuscritos.objects.filter(trabajo = Trabajo).filter(tituloM = file_name+'.pdf').filter(trabajo = Trabajo)
+                        consultaM = Manuscritos.objects.filter(trabajo = Trabajo).filter(tituloM = file_name+'.pdf')
                         if not consultaM:         
-                            #convert_to_pdf_wd(manus_path+manuscrito1.tituloM, out_folder)
-                            generate_pdf_linux(manus_path+manuscrito1.tituloM, out_folder)
+                            convert_to_pdf_wd(manus_path+manuscrito1.tituloM, out_folder,file_name+'.pdf')
+                            #generate_pdf_linux(manus_path+manuscrito1.tituloM, out_folder)
                             obj = Manuscritos(
                                 tituloM = file_name+'.pdf',
                                 manuscrito = ruta_pdf,
@@ -527,7 +524,8 @@ class AsignarEvaluadorTC(LoginRequiredMixin,IsSuperuserMixin,UpdateView):
                     T_has_E.save()
                     messages.success(request, 'Evaluador asignado con exito')
                 else:
-                    messages.error(request, 'No se puede asignar evaluador, hace parte del trabajo')
+                    print(contador)
+                    messages.error(request, 'No se puede asignar evaluador, hace parte del trabajo')                    
                 return redirect('inicio')
 
     def get_context_data(self, **kwargs):
@@ -619,3 +617,20 @@ def promedioTC(request, pk):
     trabajo.save()
 
     return redirect('detalleTrabajo',pk)
+
+def generar_pdf(request, pk):
+    manuscrito = Manuscritos.objects.get(id = pk)
+    Trabajo = Trabajos.objects.get(id = manuscrito.trabajo_id)
+    nombre_curso = Trabajo.curso.nombre_curso
+    manus_path = 'media/manuscritos/'+nombre_curso+'/'
+    out_folder = 'media/manuscritos/'+nombre_curso
+    file_name = os.path.splitext(manuscrito.tituloM)[0]
+    convert_to_pdf_wd(manus_path+manuscrito.tituloM, out_folder,file_name+'.pdf')
+    ruta_pdf = 'manuscritos/'+nombre_curso+'/'+file_name+".pdf"
+    obj = Manuscritos(
+        tituloM = file_name+'.pdf',
+        manuscrito = ruta_pdf,
+        trabajo = Trabajo
+        )
+    obj.save()
+    return redirect('detalleTrabajo',manuscrito.trabajo_id)

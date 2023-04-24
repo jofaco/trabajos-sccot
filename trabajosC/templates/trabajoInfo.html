@@ -110,11 +110,18 @@
         <div class="container">
             <ul>
                 <li style="font-size: 20px;">
-                    <a href="/media/{{ manuscrito.manuscrito }}">{{manuscrito.tituloM}}</a>
+                    <a href="/media/{{ manuscrito.manuscrito }}" target="_blank">{{manuscrito.tituloM}}</a>
                 </li>
             </ul>
         </div>
-        {% endfor %}
+            {% if manuscritos|length == 1 %}
+                <div class="container-fluid !justify !spacing">
+                    <div class="d-grid gap-2 col-4 mx-auto">
+                        <a href="{% url 'generar_pdf' manuscrito.id %}" class="btn btn-primary">Generar PDF</a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}            
         {%  endif   %}
         <br>
         
