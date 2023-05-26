@@ -21,10 +21,10 @@ def ppt_to_pdf(pptx_file_path, pdf_file_path):
 
     latest_pdf = get_latest_file(output_path)
 
-    new_name = 'LI02.pdf'
+    new_name = 'EP04.pdf'
     os.rename(latest_pdf, os.path.join(output_path, new_name))
 
-input_path = "media/manuscritos/8° Curso internacional de Trauma/LI01.docx"
+input_path = "media/manuscritos/8° Curso internacional de Trauma/EP04.pptx"
 output_path = "media/manuscritos/8° Curso internacional de Trauma/"
 
 ppt_to_pdf(input_path, output_path)

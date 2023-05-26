@@ -8,12 +8,12 @@
           <div id="alert-box"></div>
           <div class="container" >
             <div class="container  !align !spacing">
-              <p >Apreciado colega, a continuación encuentra el formato de calificación para los E-póster. Le solicitamos leer cuidadosamente el texto y calificar cada item  entre 0 y 5 mediante el menú desplegable correspondiente. La calificación final se obtendrá del promedio de puntaje de cada pregunta</p>
+              <p >Apreciado colega, a continuación encuentra el formato de calificación para los E-póster. Le solicitamos leer cuidadosamente el texto y calificar cada item entre 0 y 5 mediante el menú desplegable correspondiente. La calificación final se obtendrá del promedio de puntaje de cada pregunta</p>
             </div>
             <form action="{% url 'evaluacionEP' object.id %}" method="post">{% csrf_token %}
               {% for row in form %}              
               <div class=" container" >
-                  {% if "Es conciso pero explica suficientemente el trabajo." in row.label_tag  %}
+                  {% if "Es conciso, pero explica suficientemente el trabajo." in row.label_tag  %}
                     <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">1. Título</p> 
                   {% endif %}
                   {% if "Explica el interés especial del caso" in row.label_tag  %}
@@ -26,13 +26,13 @@
                     <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">4. Resultados</p> 
                   {% endif %}
                   {% if "Se expone el interés del caso o casos" in row.label_tag  %}
-                    <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">5. Discusion</p> 
+                    <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">5. Discusión</p> 
                   {% endif %}
                   {% if "Distribución de texto" in row.label_tag  %}
                     <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">6. Presentación</p> 
                   {% endif %}
                   {% if "Referencias pertinentes incluidas en el texto presentado." in row.label_tag  %}
-                    <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">7. Referencias, maximo 10</p> 
+                    <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">7. Referencias, máximo 10</p> 
                   {% endif %}
                   {% if "Comentarios y/o observaciones." in row.label_tag  %}
                     <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">8. Comentarios del evaluador</p> 
