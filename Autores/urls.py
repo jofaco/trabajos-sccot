@@ -11,5 +11,7 @@ urlpatterns = [
     path('delete_Autor/<int:pk>/', views.deleteAutor.as_view(), name='delete_Autor'),
     path('designarEvaluador/<int:pk>/',views.designarEvaluador,name='designarEvaluador'),
     path('eliminarEvaluador/<int:pk>/',views.eliminarEvaluador,name='eliminarEvaluador'),
+    path('lista/', views.AutoresListView.as_view(), name='autor_list'),
+
 
 ]

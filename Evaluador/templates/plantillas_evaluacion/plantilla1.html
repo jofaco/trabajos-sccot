@@ -15,11 +15,7 @@
           <div id="alert-box"></div>
           <div class="container" >
             <div class="container  !align !spacing">
-              <p class="mb-0 h6">Apreciado colega, a continuación encuentra el formato de calificación para un estudio de Experimento clínico controlado. <b>Le solicitamos leer cuidadosamente el texto y calificar cada item  entre 0 y 5 mediante el menú desplegable correspondiente.</b>  La calificación final se obtendrá del promedio de puntaje de cada pregunta<br>
-                Todos los items deben ser calificados. Si tiene duda o reparo en alguno o algunos items, por favor no dude en consignarlo en la casilla de observaciones / comentarios ubicada al final del formato, uno de los miembros del comité las leerá y tomará en cuenta.
-              
-              <hr class="my-3 border border-dark">
-              </p>
+              <p>Apreciado colega, a continuación encuentra el formato de calificación para un estudio de Experimento clínico controlado. <b>Le solicitamos leer cuidadosamente el texto y calificar cada item  entre 0 y 5 mediante el menú desplegable correspondiente.</b>  La calificación final se obtendrá del promedio de puntaje de cada pregunta</p>
             </div>
             <form action="{% url 'evaluacionECC' object.id %}" method="post" name="frm1" id="frm1">{% csrf_token %}
               {% for row in form %}              

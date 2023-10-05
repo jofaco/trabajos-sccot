@@ -16,13 +16,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from Cursos.forms import EspecialidadesForm
 from Evaluador.forms import selectPlantillaForm
-from trabajosC.forms import AutoresForm2, AutoresForm3, EvaluadorTrabajoForm, InstitucionForm, KeywordForm, ManuscritosForm, Palabras_clavesForm, TablasForm, Trabajo_AutoresForm, Trabajo_InstitucionesForm, Trabajo_KeywordsForm, Trabajo_PalabrasForm, TrabajosCForm
+from trabajosC.forms import AutoresForm2, AutoresForm3, EvaluadorTrabajoForm, InstitucionForm, KeywordForm, ManuscritosForm, Palabras_clavesForm, TablasForm, Trabajo_AutoresForm,Trabajo_AutoresINForm, Trabajo_InstitucionesForm, Trabajo_KeywordsForm, Trabajo_PalabrasForm, TrabajosCForm
 
-from trabajosC.models import Autores, Cursos, Especialidades, Instituciones, Keywords, Manuscritos, Palabras_claves, Tablas, Trabajos, Trabajos_has_Keywords, Trabajos_has_autores, Trabajos_has_evaluadores, Trabajos_has_instituciones, Trabajos_has_palabras
+from trabajosC.models import Autores, Cursos, Especialidades, Instituciones, Keywords, Manuscritos, Palabras_claves, Tablas, Trabajos, Trabajos_has_Keywords, Trabajos_has_autores, Trabajos_has_autoresIngreso, Trabajos_has_evaluadores, Trabajos_has_instituciones, Trabajos_has_palabras
 
 from trabajosC.funciones.funciones1 import asignar_plantilla, convert_to_pdf_wd ,generate_pdf_linux
 from trabajosC.funciones.funciones2 import crear_user, email_confirmTC, handle_uploaded_file
-from trabajosC.funciones.funciones1 import convert_to_pdf_wd ,generate_pdf_linux
 from usuario.mixins import IsSuperuserMixin
 # Create your views here.
 def index(request):
@@ -48,19 +47,34 @@ def index(request):
         1. Vista de aministrador con la lista de las instancias.
         2. Vista del formulario de registro de trabajo si no es administrador.
     """
-    #Validación si el usuario logeado es superuser(Admin)
+    #Validación si el usuario logueado es superuser(Admin)
     if request.user.is_authenticated:
         if request.user.is_superuser:
-            trabajos = Trabajos.objects.all().only("identificador","tipo_trabajo", "subtipo_trabajo","titulo","Autor_correspondencia", "institucion_principal","curso")
-            autores = Autores.objects.all().defer( "especialidad","direccion")
+
+            trabajos = Trabajos.objects.filter(curso__in= Cursos.objects.filter(estado=True)).only("identificador","tipo_trabajo", "titulo","Autor_correspondencia", "institucion_principal","curso")
+
             cursos = Cursos.objects.all()
             
-            autores_trab = Trabajos_has_autores.objects.all()
-            palabras_trab = Trabajos_has_palabras.objects.all()
+            autores_trab = Trabajos_has_autores.objects.filter(trabajo__in = trabajos).select_related('trabajo')
+            palabras_trab = Trabajos_has_palabras.objects.filter(trabajo__in = trabajos).select_related('trabajo')
 
-            manuscritos = Manuscritos.objects.all().select_related('trabajo')
+            return render(request,'admin2.html', {'trabajos':trabajos,'cursos':cursos,'autores_trab':autores_trab,'palab_trab':palabras_trab, 'formEspecialidad' : EspecialidadesForm()})
+        else:
+            return redirect('misEvaluaciones')
+    else:
+        return redirect('create_Trabajo')
+
+def index2(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+
+            trabajos = Trabajos.objects.filter(curso__in= Cursos.objects.filter(estado=True)).only("identificador","tipo_trabajo", "titulo","Autor_correspondencia", "institucion_principal","curso")
             
-            return render(request,'admin.html', {'autores':autores,'trabajos':trabajos,'cursos':cursos,'manuscritos':manuscritos,'autores_trab':autores_trab,'palab_trab':palabras_trab, 'formEspecialidad' : EspecialidadesForm()})
+            autores_trab = Trabajos_has_autores.objects.filter(trabajo__in = trabajos).select_related('trabajo')
+            palabras_trab = Trabajos_has_palabras.objects.filter(trabajo__in = trabajos).select_related('trabajo')
+
+            manuscritos = Manuscritos.objects.filter(trabajo__in = trabajos).select_related('trabajo')
+            return render(request,'admin.html', {'trabajos':trabajos,'manuscritos':manuscritos,'autores_trab':autores_trab,'palab_trab':palabras_trab, 'formEspecialidad' : EspecialidadesForm()})
         else:
             return redirect('misEvaluaciones')
     else:
@@ -137,17 +151,15 @@ class registrarTrabajo(CreateView):
                 data = []
                 term = request.POST['term']
                 autores = Autores.objects.filter(
-                    Q(Nombres__icontains=term) | Q(Apellidos__icontains=term))[0:10]
+                    Q(Nombres__icontains=term) | Q(Apellidos__icontains=term) )
                 for i in autores:
                     item = i.toJSON()
                     item['text'] = i.get_full_name()
                     data.append(item)
                     
             elif action == 'search_curso':
-                print("prueba")
                 term = request.POST['curso_id']
                 curso = Cursos.objects.get(id=term)
-                print(term)
                 if curso.fecha_fin < dtime.date.today():
                     data['error'] = 'No es posible registrar el trabajo, ha excedido la fecha límite'
                     return JsonResponse(data, safe=False)
@@ -233,6 +245,7 @@ class registrarTrabajo(CreateView):
                     else:
                         trab.save()
                         otros_autores = trabj['otros_autores']
+                        autores_ingreso = trabj['autores_ingreso']
                         otras_inst = trabj['otras_instituciones']
     
                         palabras_claves = trabj['palabras_claves']
@@ -255,7 +268,13 @@ class registrarTrabajo(CreateView):
                                 a = int(i)
                                 aut = Autores.objects.get(id = a)
                                 Trabajos_has_autores.objects.create(trabajo_id=trab.id, autor_id =aut.id)
-    
+
+                        for i in autores_ingreso:
+                            if len(i) != 0:
+                                a = int(i)
+                                aut = Autores.objects.get(id = a)
+                                Trabajos_has_autoresIngreso.objects.create(trabajo_id=trab.id, autorIN_id =aut.id)
+                        
                         for i in otras_inst:
                             if len(i) != 0:
                                 a = int(i)
@@ -269,45 +288,57 @@ class registrarTrabajo(CreateView):
                             if "Libre" in trab.tipo_trabajo or "Ingreso" in trab.tipo_trabajo:
                                 cant_trabajos= Trabajos.objects.filter(curso_id = trab.curso_id).filter(Q(tipo_trabajo__icontains="Libre") | Q(tipo_trabajo__icontains="Ingreso")).count()
                                 if "Libre" in trab.tipo_trabajo:
+                                    if cant_trabajos<10:
+                                        cant_trabajos = '0'+str(cant_trabajos)
                                     name1 = fs.save(nombre_curso+'/'+"LI"+str(cant_trabajos)+'.'+postfix,file)
                                     obj = Manuscritos(
-                                    tituloM = "LI"+str(cant_trabajos)+'.'+postfix,
-                                    manuscrito = '/manuscritos/'+name1,
-                                    trabajo = trab
+                                        tituloM = "LI"+str(cant_trabajos)+'.'+postfix,
+                                        manuscrito = '/manuscritos/'+name1,
+                                        trabajo = trab
                                     )
-                                    trab.identificador = 'LI'+str(cant_trabajos)
+                                    trab.siglasTrabajo = 'LI'
+                                    trab.identificador = str(cant_trabajos)
                                 else:
+                                    if cant_trabajos<10:
+                                        cant_trabajos = '0'+str(cant_trabajos)
                                     name1 = fs.save(nombre_curso+'/'+"IN"+str(cant_trabajos)+'.'+postfix,file)
                                     obj = Manuscritos(
-                                    tituloM = "IN"+str(cant_trabajos)+'.'+postfix,
-                                    manuscrito = '/manuscritos/'+name1,
-                                    trabajo = trab
+                                        tituloM = "IN"+str(cant_trabajos)+'.'+postfix,
+                                        manuscrito = '/manuscritos/'+name1,
+                                        trabajo = trab
                                     )
-                                    trab.identificador = 'IN'+str(cant_trabajos)
+                                    trab.siglasTrabajo = 'LI'
+                                    trab.identificador = str(cant_trabajos)
     
                             elif "E-poster" in trab.tipo_trabajo:
-                                cant_trabajos= Trabajos.objects.filter(curso_id = trab.curso_id).filter(tipo_trabajo__icontains="E-poster").count()
+                                cant_trabajos= Trabajos.objects.filter(curso_id = trab.curso_id).filter(tipo_trabajo__icontains="E-poster").count()                                
+                                if cant_trabajos<10:
+                                    cant_trabajos = '0'+str(cant_trabajos)
+                                    
                                 name1 = fs.save(nombre_curso+'/'+"EP"+str(cant_trabajos)+'.'+postfix,file)
                                 obj = Manuscritos(
                                 tituloM = "EP"+str(cant_trabajos)+'.'+postfix,
                                 manuscrito = '/manuscritos/'+name1,
                                 trabajo = trab
                                 )
-                                trab.identificador = 'EP'+str(cant_trabajos)
+                                trab.siglasTrabajo = 'EP'
+                                trab.identificador = str(cant_trabajos)
                                 
                             trab.save()
                             obj.save(force_insert=True )
     
                         for file in tablas:
+                            i=1
                             postfix=os.path.splitext(file.name)[1][1:]
                             fs = FileSystemStorage(location=manus_path2, base_url=manus_path2)
                             name1 = fs.save(nombre_curso+'/'+"anexo"+trab.tipo_trabajo+str(cant_trabajos)+'.'+postfix,file)
                             obj = Tablas(
-                                tituloT = "anexo"+trab.tipo_trabajo+str(cant_trabajos)+'.'+postfix,
+                                tituloT = str(i)+"anexo"+trab.tipo_trabajo+str(cant_trabajos)+'.'+postfix,
                                 tabla = '/otros/'+name1,
                                 trabajo = trab
                                 )
                             obj.save(force_insert=True )
+                            i+=1
                         AutorP = Autores.objects.get(id = trab.Autor_correspondencia_id)
                         nombre = AutorP.get_full_name()
                         correo = AutorP.email
@@ -334,6 +365,8 @@ class registrarTrabajo(CreateView):
         context['manuscritosForm'] = ManuscritosForm()
         context['tablasForm'] = TablasForm()
         context['trabajo_autorForm'] = Trabajo_AutoresForm()
+        context['trabajo_autorINForm'] = Trabajo_AutoresINForm()
+
         context['trabajo_instiForm'] = Trabajo_InstitucionesForm()
         context['trabajo_instiForm'] = Trabajo_InstitucionesForm()
         context['trabajo_palbForm'] = Trabajo_PalabrasForm()
@@ -368,6 +401,8 @@ class TrabajoDetailView(LoginRequiredMixin,IsSuperuserMixin,DetailView):
         context['evaluadores'] = Trabajos_has_evaluadores.objects.filter(trabajo_id = self.kwargs['pk'] )
         context['palabrasC'] = Trabajos_has_palabras.objects.filter(trabajo_id = self.kwargs['pk'] )
         context['keywords'] = Trabajos_has_Keywords.objects.filter(trabajo_id = self.kwargs['pk'] )
+        context['autores_ingreso'] = Trabajos_has_autoresIngreso.objects.filter(trabajo_id = self.kwargs['pk'] )
+
 
         return context
  
@@ -433,23 +468,23 @@ class AsignarEvaluadorTC(LoginRequiredMixin,IsSuperuserMixin,UpdateView):
             elif plantillasF['plantilla'].value() == "0":
                 messages.warning(request, 'No ha seleccionado una plantilla de evaluación')
                 return redirect('inicio')
+            elif Trabajo.Autor_correspondencia == form.cleaned_data['evaluador']:
+                messages.error(request, 'No se puede asignar el evaluador '+ form.cleaned_data['evaluador'].get_full_name() +', es el autor principal del trabajo')
+                return redirect('inicio')
             else:
                 for obj in otros_autores:
-                    if obj.autor == form.cleaned_data['evaluador']:
+                    if obj.autor == form.cleaned_data['evaluador']:                        
                         contador +=1
-                if contador ==0 and Trabajo.Autor_correspondencia != form.cleaned_data['evaluador'] and (postfix=='docx' or postfix=='doc'):                    
+                if contador == 0  and (postfix=='docx' or postfix=='doc'):                    
                     for prev_evl in previews_evaluadores:
                         if prev_evl.evaluador == form.cleaned_data['evaluador']:
                             messages.error(request, 'No se puede asignar evaluador, ya fue asignado previamente')
                             return redirect('inicio')
                     id_evaluador= Autores.objects.get(id=form.cleaned_data['evaluador'].id)
-                    #if id_evaluador.id != 2885 and id_evaluador.id !=2886:
-                    #    messages.error(request, 'Esta en entorno de pruebas, no puede asignar otro evaluador')
-                    #    return redirect('inicio')
                     user = crear_user(id_evaluador.id,fecha_fin_eva,Trabajo.titulo)
                     asignar_plantilla(plantillasF['plantilla'].value(),Trabajo,user)
                     ruta_pdf = 'manuscritos/'+nombre_curso+'/'+file_name+".pdf"
-                    consultaM = Manuscritos.objects.filter(trabajo = Trabajo).filter(tituloM = file_name+'.pdf').filter(trabajo = Trabajo)
+                    consultaM = Manuscritos.objects.filter(trabajo = Trabajo).filter(tituloM = file_name+'.pdf')
                     if not consultaM:         
                         #convert_to_pdf_wd(manus_path+manuscrito1.tituloM, out_folder)
                         generate_pdf_linux(manus_path+manuscrito1.tituloM, out_folder)
@@ -463,23 +498,20 @@ class AsignarEvaluadorTC(LoginRequiredMixin,IsSuperuserMixin,UpdateView):
                     T_has_E.trabajo_id = Trabajo.id
                     T_has_E.save()
                     messages.success(request, 'Evaluador asignado con exito')
-                elif contador ==0 and Trabajo.Autor_correspondencia != form.cleaned_data['evaluador'] and postfix=='pptx' or postfix=='ppt' or postfix=='mp4' or postfix=='mov' or postfix=='avi':
+                elif contador == 0  and (postfix=='pptx' or postfix=='ppt' or postfix=='mp4' or postfix=='mov' or postfix=='avi'):
 
                     for prev_evl in previews_evaluadores:
                         if prev_evl.evaluador == form.cleaned_data['evaluador']:
                             messages.error(request, 'No se puede asignar evaluador, ya fue asignado previamente')
                             return redirect('inicio')
                     id_evaluador= Autores.objects.get(id=form.cleaned_data['evaluador'].id)
-                    #if id_evaluador.id != 2885 and id_evaluador.id !=2886:
-                    #    messages.error(request, 'Esta en entorno de pruebas, no puede asignar otro evaluador')
-                    #    return redirect('inicio')
                     user = crear_user(id_evaluador.id,fecha_fin_eva,Trabajo.titulo)
                     asignar_plantilla(plantillasF['plantilla'].value(),Trabajo,user)
                     if 'ppt' in postfix:                        
                         ruta_pdf = 'manuscritos/'+nombre_curso+'/'+file_name+".pdf"
-                        consultaM = Manuscritos.objects.filter(trabajo = Trabajo).filter(tituloM = file_name+'.pdf').filter(trabajo = Trabajo)
+                        consultaM = Manuscritos.objects.filter(trabajo = Trabajo).filter(tituloM = file_name+'.pdf')
                         if not consultaM:         
-                            #convert_to_pdf_wd(manus_path+manuscrito1.tituloM, out_folder)
+                            #convert_to_pdf_wd(manus_path+manuscrito1.tituloM, out_folder,file_name+'.pdf')
                             generate_pdf_linux(manus_path+manuscrito1.tituloM, out_folder)
                             obj = Manuscritos(
                                 tituloM = file_name+'.pdf',
@@ -492,7 +524,8 @@ class AsignarEvaluadorTC(LoginRequiredMixin,IsSuperuserMixin,UpdateView):
                     T_has_E.save()
                     messages.success(request, 'Evaluador asignado con exito')
                 else:
-                    messages.error(request, 'No se puede asignar evaluador, hace parte del trabajo')
+                    print(contador)
+                    messages.error(request, 'No se puede asignar evaluador, hace parte del trabajo')                    
                 return redirect('inicio')
 
     def get_context_data(self, **kwargs):
@@ -523,7 +556,7 @@ class ManuscritoEdit(LoginRequiredMixin,IsSuperuserMixin,UpdateView):
     model = Manuscritos
     form_class = ManuscritosForm
     template_name = 'manus_editModal.html'
-    success_url = reverse_lazy('inicio')
+    success_url = reverse_lazy('list_trabajos_m')
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -548,7 +581,7 @@ class ManuscritoEdit(LoginRequiredMixin,IsSuperuserMixin,UpdateView):
                 messages.success(request, 'El documento ha sido actualizado!')
             else:
                 messages.error(request, 'El documento no tiene el mismo nombre que el subido por el autor!')
-            return redirect('inicio')
+            return redirect('list_trabajos_m')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)        
@@ -584,3 +617,20 @@ def promedioTC(request, pk):
     trabajo.save()
 
     return redirect('detalleTrabajo',pk)
+
+def generar_pdf(request, pk):
+    manuscrito = Manuscritos.objects.get(id = pk)
+    Trabajo = Trabajos.objects.get(id = manuscrito.trabajo_id)
+    nombre_curso = Trabajo.curso.nombre_curso
+    manus_path = 'media/manuscritos/'+nombre_curso+'/'
+    out_folder = 'media/manuscritos/'+nombre_curso
+    file_name = os.path.splitext(manuscrito.tituloM)[0]
+    convert_to_pdf_wd(manus_path+manuscrito.tituloM, out_folder,file_name+'.pdf')
+    ruta_pdf = 'manuscritos/'+nombre_curso+'/'+file_name+".pdf"
+    obj = Manuscritos(
+        tituloM = file_name+'.pdf',
+        manuscrito = ruta_pdf,
+        trabajo = Trabajo
+        )
+    obj.save()
+    return redirect('detalleTrabajo',manuscrito.trabajo_id)

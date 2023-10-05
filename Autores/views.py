@@ -5,12 +5,14 @@ from django.views.generic import CreateView, UpdateView,DeleteView
 from django.urls import  reverse_lazy
 from django.shortcuts import  redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
 
 from Autores.forms import AutoresForm
 
 from trabajosC.models import Autores
 from usuario.mixins import IsSuperuserMixin
 # Create your views here.
+
 
 class registrarAutor(LoginRequiredMixin,IsSuperuserMixin,CreateView):
     ''' Clase CreateView para registrar Autores. 
@@ -38,6 +40,7 @@ class registrarAutor(LoginRequiredMixin,IsSuperuserMixin,CreateView):
     model = Autores
     form_class= AutoresForm
     template_name='createAutor.html'
+    success_url = reverse_lazy('inicio')
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -122,7 +125,7 @@ def designarEvaluador(request,pk):
         :redirect: Redirecciona al index.
     """
     Autores.objects.filter(id = pk).update(role_id = 2)
-    return redirect('inicio')
+    return redirect('autor_list')
 
 @login_required
 def eliminarEvaluador(request,pk):
@@ -136,4 +139,37 @@ def eliminarEvaluador(request,pk):
         :redirect: Redirecciona al index.
     """
     Autores.objects.filter(id = pk).update(role_id = None)
-    return redirect('inicio')
+    return redirect('autor_list')
+
+class AutoresListView(LoginRequiredMixin,IsSuperuserMixin, ListView):
+    ''' Clase ListView para listar los autores. 
+
+    **Context** 
+       
+        :model:  Una instancia del modelo Autor .
+        
+        
+    **Methods**
+        
+        :``get_context_data(self, **kwargs)``: 
+        
+            Envio del context al template para listar autores.
+    
+    **Template:**
+
+        :template_name: Template en donde se listarán a los autores.
+            
+    '''
+    model = Autores
+    template_name = 'list_autores.html'
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Listado de Autores'
+        context['list_url'] = reverse_lazy('autor_list')
+        context['autores'] = Autores.objects.all().defer( "especialidad","direccion")
+        return context

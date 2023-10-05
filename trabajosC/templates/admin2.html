@@ -41,16 +41,16 @@
         <div class="btn-group-lg" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
             <a class="btn btn-outline-primary" for="btnradio4" href="{% url 'autor_list' %}">Autores</a>
-          
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" >
-            <a class="btn btn-outline-primary" for="btnradio2" href="{% url 'inicio'  %}">Trabajos Principal</a>
+            
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="btnradio2" >Trabajos Principal</label>
           
             <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-            <a class="btn btn-outline-primary" for="btnradio3" href="{% url 'inicio'  %}">Cursos</a>
+            <label class="btn btn-outline-primary" for="btnradio3">Cursos</label>
 
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="btnradio2" >Trabajos con archivos</label>
-          
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" >
+            <a class="btn btn-outline-primary" for="btnradio2" href="{% url 'list_trabajos_m'  %}">Trabajos con archivos</a>
+                    
             <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
             <a class="btn btn-outline-primary" for="btnradio4" href="{% url 'user:user_list' %}">Usuarios</a>
           
@@ -62,10 +62,20 @@
     {% include 'messages.html' %}
 
     <div class="container-fluid " id="contenedorTrabajos">
-        {% include 'tablas/trabajosList.html' %}
-        <div class="modal fade contenedor" id="editManus_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        {% include 'tablas/trabajosList2.html' %}
+        <div class="modal fade contenedor" id="evaluador_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: scroll;">
         </div>
-    </div>    
+    </div>
+
+    <div class="container-fluid " id="contenedorCursos" hidden>
+        {% include 'tablas/cursosList.html' %}
+        <div class="modal fade contenedor" id="crearCurso_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: scroll;">
+        </div>
+        <div class="modal fade contenedor" id="editCurso_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        </div>
+        <div class="modal fade contenedor" id="eliminarCurso_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        </div>
+    </div>
     <br><br>
 {% endblock %}
 {% block javascript %}
@@ -74,11 +84,27 @@
             $('#trabajos').DataTable({
                 responsive: true,
                 autoWidth: false
-            });             
-            function abrir_modal_editManus(url){
-                $('#editManus_Modal').load(url, function (){
+            });
+            function abrir_modal_createCurso(url){
+                $('#crearCurso_Modal').load(url, function (){
                     $(this).modal('show');
                 });
-            }            
+            }
+            function abrir_modal_editCurso(url){
+                $('#editCurso_Modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+            function abrir_modal_deleteCurso(url){
+                $('#eliminarCurso_Modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+            function abrir_modal_evaluador(url){
+                $('#evaluador_Modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+            
         </script>
 {% endblock %}
