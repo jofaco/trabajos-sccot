@@ -15,9 +15,6 @@ CHOICES =(
     ("plantillaCTForm", "Plantilla Corte Transversal"),
     ("casosyControlesForm", "Plantilla Casos y Controles"),
     ("cohortesForm", "Plantilla Cohortes"),
-    ("ANATOMICOForm", "Plantilla Anatómico y técnica en cadáver"),
-    ("validacionEscalasForm", "Plantilla Validación de escalas - Evidencia"),
-    ("CongresoForm", "Plantilla Especial - Congreso"),
     ("epForm", "Plantilla EPoster"),
 )
 
@@ -50,7 +47,6 @@ class eccForm(ModelForm):
             'lrcdpcr':'Las referencias citadas son discutidas y puestas en contexto con los resultados',
             'asevc':'Análisis de sesgos, efecto de variables de confusión',
             'avear':'Análisis de la validez externa (aplicabilidad) de los resultados',
-            'cryo': 'Construcción, redacción y ortografía',
             'comentario':'Observaciones y/o comentarios',
         }
         widgets = {
@@ -78,8 +74,8 @@ class eccForm(ModelForm):
             'lrcdpcr':forms.Select(attrs={'class':'form-control'}),
             'asevc':forms.Select(attrs={'class':'form-control'}),
             'avear':forms.Select(attrs={'class':'form-control'}),
-            'cryo':forms.Select(attrs={'class':'form-control'}),
             'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
+            
         }
 
 class pruebasDXForm(ModelForm):
@@ -108,7 +104,6 @@ class pruebasDXForm(ModelForm):
             'lrcdpcr':'Las referencias citadas son discutidas y puestas en contexto con los resultados',
             'asevc':'Análisis de sesgos, efecto de variables de confusión',
             'avear':'Análisis de la validez externa (aplicabilidad) de los resultados',
-            'cryo': 'Construcción, redacción y ortografía',
             'comentario':'Observaciones y/o comentarios',
         }
         widgets = {
@@ -133,8 +128,8 @@ class pruebasDXForm(ModelForm):
             'lrcdpcr':forms.Select(attrs={'class':'form-control'}),
             'asevc':forms.Select(attrs={'class':'form-control'}),
             'avear':forms.Select(attrs={'class':'form-control'}),
-            'cryo':forms.Select(attrs={'class':'form-control'}),
             'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
+            
         }
 
 class RSyMAForm(ModelForm):
@@ -163,7 +158,6 @@ class RSyMAForm(ModelForm):
             'lrcdpcr':'Las referencias citadas son discutidas y puestas en contexto con los resultados',
             'asevc':'Análisis de sesgos, efecto de variables de confusión',
             'avear':'Análisis de la validez externa (aplicabilidad) de los resultados',
-            'cryo': 'Construcción, redacción y ortografía',
             'comentario':'Observaciones y/o comentarios',
         }
         widgets = {
@@ -188,8 +182,8 @@ class RSyMAForm(ModelForm):
             'lrcdpcr':forms.Select(attrs={'class':'form-control'}),
             'asevc':forms.Select(attrs={'class':'form-control'}),
             'avear':forms.Select(attrs={'class':'form-control'}),
-            'cryo':forms.Select(attrs={'class':'form-control'}),
             'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
+            
         }
 
 class plantillaSCForm(ModelForm):
@@ -217,7 +211,6 @@ class plantillaSCForm(ModelForm):
             'lrcdpcr':'Las referencias citadas son discutidas y puestas en contexto con los resultados',
             'asevc':'Análisis de sesgos, efecto de variables de confusión',
             'avear':'Análisis de la validez externa (aplicabilidad) de los resultados',
-            'cryo': 'Construcción, redacción y ortografía',
             'comentario':'Observaciones y/o comentarios',
         }
         widgets = {
@@ -241,8 +234,8 @@ class plantillaSCForm(ModelForm):
             'lrcdpcr':forms.Select(attrs={'class':'form-control'}),
             'asevc':forms.Select(attrs={'class':'form-control'}),
             'avear':forms.Select(attrs={'class':'form-control'}),
-            'cryo':forms.Select(attrs={'class':'form-control'}),
             'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
+            
         }
 
 class plantillacorteTrasversalForm(ModelForm):
@@ -270,7 +263,6 @@ class plantillacorteTrasversalForm(ModelForm):
             'lrcdpcr':'Las referencias citadas son discutidas y puestas en contexto con los resultados',
             'asevc':'Análisis de sesgos, efecto de variables de confusión',
             'avear':'Análisis de la validez externa (aplicabilidad) de los resultados',
-            'cryo': 'Construcción, redacción y ortografía',
             'comentario':'Observaciones y/o comentarios',
         }
         widgets = {
@@ -294,7 +286,6 @@ class plantillacorteTrasversalForm(ModelForm):
             'lrcdpcr':forms.Select(attrs={'class':'form-control'}),
             'asevc':forms.Select(attrs={'class':'form-control'}),
             'avear':forms.Select(attrs={'class':'form-control'}),
-            'cryo':forms.Select(attrs={'class':'form-control'}),
             'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
         }
 
@@ -325,7 +316,6 @@ class casosyControlesForm(ModelForm):
             'lrcdpcr':'Las referencias citadas son discutidas y puestas en contexto con los resultados',
             'asevc':'Análisis de sesgos, efecto de variables de confusión',
             'avear':'Análisis de la validez externa (aplicabilidad) de los resultados',
-            'cryo': 'Construcción, redacción y ortografía',
             'comentario':'Observaciones y/o comentarios',
         }
         widgets = {
@@ -351,7 +341,6 @@ class casosyControlesForm(ModelForm):
             'lrcdpcr':forms.Select(attrs={'class':'form-control'}),
             'asevc':forms.Select(attrs={'class':'form-control'}),
             'avear':forms.Select(attrs={'class':'form-control'}),
-            'cryo':forms.Select(attrs={'class':'form-control'}),
             'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
         }
 
@@ -367,7 +356,7 @@ class cohortesForm(ModelForm):
             'Descripcion_de_justificacion':'Descripción de la justificación',
             'Descripcion_de_objetivos': 'Descripción de objetivos',
             'daprpi': 'Diseño adecuado para responder pregunta de investigación',
-            'comite_de_etica':'Comité de ética',
+            'Comite_de_etica':'Comité de ética',
             'dmr':'Descripción de método de reclutamiento',
             'mpddred':'Mecanismos para definición y detección de riesgo, exposición y desenlaces',
             'ecs':'Estrategia de control de sesgos',
@@ -382,7 +371,6 @@ class cohortesForm(ModelForm):
             'lrcdpcr':'Las referencias citadas son discutidas y puestas en contexto con los resultados',
             'asevc':'Análisis de sesgos, efecto de variables de confusión',
             'avear':'Análisis de la validez externa (aplicabilidad) de los resultados',
-            'cryo': 'Construcción, redacción y ortografía',
             'comentario':'Observaciones y/o comentarios',
         }
         widgets = {
@@ -393,7 +381,7 @@ class cohortesForm(ModelForm):
             'Descripcion_de_justificacion':forms.Select(attrs={'class':'form-control'}),
             'Descripcion_de_objetivos':forms.Select(attrs={'class':'form-control'}),
             'daprpi':forms.Select(attrs={'class':'form-control'}),
-            'comite_de_etica':forms.Select(attrs={'class':'form-control'}),
+            'Comite_de_etica':forms.Select(attrs={'class':'form-control'}),
             'dmr':forms.Select(attrs={'class':'form-control'}),
             'mpddred':forms.Select(attrs={'class':'form-control'}),
             'ecs':forms.Select(attrs={'class':'form-control'}),
@@ -408,7 +396,6 @@ class cohortesForm(ModelForm):
             'lrcdpcr':forms.Select(attrs={'class':'form-control'}),
             'asevc':forms.Select(attrs={'class':'form-control'}),
             'avear':forms.Select(attrs={'class':'form-control'}),
-            'cryo':forms.Select(attrs={'class':'form-control'}),
             'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
         }
 
@@ -422,154 +409,20 @@ class epForm(ModelForm):
         exclude = ('trabajo','user','calificacion')
 
         labels = {
-            'titulo' : 'Es conciso pero explica suficientemente el trabajo.',
-            'introduccion_justificacion':'Explica el interés especial del caso, por el diagnóstico poco usual, novedad del tratamiento o del desenlace.',
-            'material_metodos' : 'Reporta adecuadamente las pruebas diagnósticas pertinentes e intervenciones.',
-            'redaccion_ortografia' : 'Redacción y ortografia',
-            'resultado':'Se reporta en forma objetiva los resultados.',
-            'discusion':'Se expone el interés del caso o casos y se contrasta los resultados en contexto con la literatura pertinente.',
-            'presentacion': 'Distribución de texto, tamaño de fuentes, Calidad de fotografías.',
-            'referencias': 'Referencias pertinentes incluidas en el texto presentado.',
-            'comentario':'Comentarios y/o observaciones.',
+            'titulo' : 'Título e introducción',
+            'material_metodos' : 'Materiales y métodos',
+            'resultado':'Resultados',
+            'discusion':'Discusión',
+            'interes_academico': 'Interés académico y originalidad',
+            'comentario':'Observaciones y/o comentarios',
         }
         widgets = {
 
             'titulo':forms.Select(attrs={'class':'form-control'}),
-            'introduccion_justificacion':forms.Select(attrs={'class':'form-control'}),
             'material_metodos':forms.Select(attrs={'class':'form-control'}),
-            'redaccion_ortografia':forms.Select(attrs={'class':'form-control'}),
             'resultado':forms.Select(attrs={'class':'form-control'}),
             'discusion':forms.Select(attrs={'class':'form-control'}),
-            'presentacion':forms.Select(attrs={'class':'form-control'}),
-            'referencias':forms.Select(attrs={'class':'form-control'}),
+            'interes_academico':forms.Select(attrs={'class':'form-control'}),
             'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
-        }
-
-class plantillaANATOMICOForm(ModelForm):
-    class Meta:
-        model= plantillaANATOMICOyTC
-        exclude = ('trabajo','user','calificacion')
-
-        labels = {
-            'titulo' : 'Título',
-            'Resumen_estructurado' : 'Resumen estructurado',
-            'Palabras_claves':'Palabras claves',
-            'Descripcion_de_justificacion':'Descripción de la justificación',
-            'Descripcion_de_objetivos': 'Descripción de objetivos',
-            'daprpi': 'Diseño adecuado para responder pregunta de investigación',
-            'comite_de_etica':'Comité de ética',
-            'def_muestra':'Definición de la muestra: Número de especímenes suficiente para controlar variaciones anatómicas descritas',
-            'dcpdcd':'Descripción completa de procedimiento y diferencias con conocimiento disponible',
-            'dcde':'Descripción completa de demografía de los especímentes',
-            'dchape':'Descripción clara de hallazgos anatómicos y/o de procedimiento estudiado',
-            'peprfce':'Pruebas estadísticas pertinentes reportadas en forma concreta pero explícita',
-            'sarclr':'Suficiente análisis de los resultados, comparación con la literatura más reciente',
-            'lrcdpcr':'Las referencias citadas son discutidas y puestas en contexto con los resultados',
-            'avear':'Análisis de la validez externa (aplicabilidad) de los resultados',
-            'comentario':'Observaciones y/o comentarios',
-        }
-        widgets = {
-
-            'titulo':forms.Select(attrs={'class':'form-control'}),
-            'Resumen_estructurado':forms.Select(attrs={'class':'form-control'}),
-            'Palabras_claves':forms.Select(attrs={'class':'form-control'}),
-            'Descripcion_de_justificacion':forms.Select(attrs={'class':'form-control'}),
-            'Descripcion_de_objetivos':forms.Select(attrs={'class':'form-control'}),
-            'daprpi':forms.Select(attrs={'class':'form-control'}),
-            'comite_de_etica':forms.Select(attrs={'class':'form-control'}),
-            'def_muestra':forms.Select(attrs={'class':'form-control'}),
-            'dcpdcd':forms.Select(attrs={'class':'form-control'}),
-            'dcde':forms.Select(attrs={'class':'form-control'}),
-            'dchape':forms.Select(attrs={'class':'form-control'}),
-            'peprfce':forms.Select(attrs={'class':'form-control'}),
-            'sarclr':forms.Select(attrs={'class':'form-control'}),
-            'lrcdpcr':forms.Select(attrs={'class':'form-control'}),
-            'avear':forms.Select(attrs={'class':'form-control'}),
-            'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
-        }
-
-class validacionEscalasForm(ModelForm):
-    class Meta:
-        model= plantillaVALIDACIONESCALAS
-        exclude = ('trabajo','user','calificacion')
-
-        labels = {
-            'titulo' : 'Título',
-            'Resumen_estructurado' : 'Resumen estructurado',
-            'Palabras_claves':'Palabras claves',
-            'Descripcion_de_justificacion':'Descripción de la justificación',
-            'Descripcion_de_objetivos': 'Descripción de objetivos',
-            'daprpi': 'Diseño adecuado para responder pregunta de investigación',
-            'comite_de_etica':'Comité de ética',
-            'ptct':'Proceso de traducción / contratraducción (si aplica)',
-            'dpeupcpv':'Descripción de pruebas estadísticas a usar para  cada proceso de la validación',
-            'dtmape':'Determinación de tamaño de muestra de acuerdo con pruebas  estadísticas',
-            'cpoevnm':'Comparación pertinente con otras escalas válidas en nuestro medio',
-            'dcdp':'Descripción completa de demografía de los participantes',
-            'rsapps':'Reporte de sujetos que no aceptaron participar o se perdieron en el seguimiento',
-            'peprfce':'Pruebas estadísticas pertinentes reportadas en forma concreta pero explícita',
-            'sarclr':'Suficiente análisis de los resultados, comparación con la literatura más reciente',
-            'lrcdpcr':'Las referencias citadas son discutidas y puestas en contexto con los resultados',
-            'acar':'Análisis del contexto y aplicabilidad de los resultados',
-            'comentario':'Observaciones y/o comentarios',
-        }
-        widgets = {
-
-            'titulo':forms.Select(attrs={'class':'form-control'}),
-            'Resumen_estructurado':forms.Select(attrs={'class':'form-control'}),
-            'Palabras_claves':forms.Select(attrs={'class':'form-control'}),
-            'Descripcion_de_justificacion':forms.Select(attrs={'class':'form-control'}),
-            'Descripcion_de_objetivos':forms.Select(attrs={'class':'form-control'}),
-            'daprpi':forms.Select(attrs={'class':'form-control'}),
-            'comite_de_etica':forms.Select(attrs={'class':'form-control'}),
-            'ptct':forms.Select(attrs={'class':'form-control'}),
-            'dpeupcpv':forms.Select(attrs={'class':'form-control'}),
-            'dtmape':forms.Select(attrs={'class':'form-control'}),
-            'cpoevnm':forms.Select(attrs={'class':'form-control'}),
-            'dcdp':forms.Select(attrs={'class':'form-control'}),
-            'rsapps':forms.Select(attrs={'class':'form-control'}),
-            'peprfce':forms.Select(attrs={'class':'form-control'}),
-            'sarclr':forms.Select(attrs={'class':'form-control'}),
-            'lrcdpcr':forms.Select(attrs={'class':'form-control'}),
-            'acar':forms.Select(attrs={'class':'form-control'}),
-            'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
-        }
-
-class CONGRESOForm(ModelForm):
-    class Meta:
-        model= plantillaCONGRESO
-        exclude = ('trabajo','user','calificacion')
-
-        labels = {
-            'titulo' : 'Título',
-            'Resumen_estructurado' : 'Resumen estructurado',
-            'Palabras_claves':'Palabras claves',
-            'Descripcion_de_justificacion':'Descripción de la justificación',
-            'Descripcion_de_objetivos': 'Descripción de objetivos',
-            'daprpi': 'Diseño adecuado para responder pregunta de investigación',
-            'comite_de_etica':'Comité de ética',
-            'dcve':'Definición clara de variables de estudio',
-            'Tam_muestra':'Tamaño de Muestra',
-            'sarclr':'Suficiente análisis de los resultados, comparación con la literatura más reciente',
-            'lrcdpcr':'Las referencias citadas son discutidas y puestas en contexto con los resultados',
-            'asevc':'Análisis de sesgos, efecto de variables de confusión',
-            'avear':'Análisis de la validez externa (aplicabilidad) de los resultados',
-            'comentario':'Observaciones y/o comentarios',
-        }
-        widgets = {
-
-            'titulo':forms.Select(attrs={'class':'form-control'}),
-            'Resumen_estructurado':forms.Select(attrs={'class':'form-control'}),
-            'Palabras_claves':forms.Select(attrs={'class':'form-control'}),
-            'Descripcion_de_justificacion':forms.Select(attrs={'class':'form-control'}),
-            'Descripcion_de_objetivos':forms.Select(attrs={'class':'form-control'}),
-            'daprpi':forms.Select(attrs={'class':'form-control'}),
-            'comite_de_etica':forms.Select(attrs={'class':'form-control'}),
-            'dcve':forms.Select(attrs={'class':'form-control'}),
-            'Tam_muestra':forms.Select(attrs={'class':'form-control'}),
-            'sarclr':forms.Select(attrs={'class':'form-control'}),
-            'lrcdpcr':forms.Select(attrs={'class':'form-control'}),
-            'asevc':forms.Select(attrs={'class':'form-control'}),
-            'avear':forms.Select(attrs={'class':'form-control'}),
-            'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
+            
         }

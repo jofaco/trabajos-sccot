@@ -13,12 +13,11 @@
           <div id="alert-box"></div>
           <div class="container" >
             <div class="container  !align !spacing">
-            
-              <p>Apreciado colega, a continuación encuentra el formato de calificación para un estudio de Pruebas Diagnósticas. <b>Le solicitamos leer cuidadosamente el texto y calificar cada item  entre 0 y 5 mediante el menú desplegable correspondiente.</b>  La calificación final se obtendrá del promedio de puntaje de cada pregunta</p>
+              <p>Apreciado colega, a continuación encuentra el formato de calificación para un estudio de Serie de casos. <b>Le solicitamos leer cuidadosamente el texto y calificar cada item  entre 0 y 5 mediante el menú desplegable correspondiente.</b>  La calificación final se obtendrá del promedio de puntaje de cada pregunta</p>
               <hr>
               <p>Todos los  items deben ser calificados. Si tiene duda o reparo en alguno o algunos items, por favor no dude en consignarlo en la casilla de observaciones / comentarios ubicada al final del formato, uno de los miembros del comité las leerá y tomará en cuenta.</p>
-            </div>
-            <form action="{% url 'evaluacionPruebasDX' object.id %}" method="post" name="frm2" id="frm2">{% csrf_token %}
+            </div>            
+            <form action="{% url 'evaluacionSC' object.id %}" method="post" name="frm4" id="frm4">{% csrf_token %}
               {% for row in form %}              
               <div class=" container" >
                   <div class="grid-container" >
@@ -33,7 +32,7 @@
               {% endfor %}
               <br>
               <div class="modal-footer contenedorModal">
-                  <button class="btn btn-success" id="btnForm2" type="button"> Calificar</button>
+                  <button class="btn btn-success" id="btnForm4" type="button"> Calificar</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               </div>
         </form>

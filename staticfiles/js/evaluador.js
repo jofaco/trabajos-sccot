@@ -22,15 +22,6 @@ $(function () {
     $('#btnForm7').on('click', function () {
         alert_confirm7();
     });
-    $('#btnForm8').on('click', function () {
-        alert_confirm8();
-    });
-    $('#btnForm9').on('click', function () {
-        alert_confirm9();
-    });
-    $('#btnForm10').on('click', function () {
-        alert_confirm10();
-    });
 });
 
 
@@ -239,99 +230,6 @@ function alert_confirm7() {
                 btnClass: 'btn-primary',
                 action: function () {
                     document.frm7.submit();
-                }
-            },
-            danger: {
-                text: "No",
-                btnClass: 'btn-red',
-                action: function () {
-
-                }
-            },
-        }
-    });
-
-}
-function alert_confirm8() {
-    
-    $.confirm({
-        theme: 'material',
-        title: "Confirmación",
-        icon: 'fa fa-info',
-        content: "¿Estas seguro de enviar la calificación?",
-        columnClass: 'small',
-        typeAnimated: true,
-        cancelButtonClass: 'btn-primary',
-        draggable: true,
-        dragWindowBorder: false,
-        buttons: {
-            info: {
-                text: "Si",
-                btnClass: 'btn-primary',
-                action: function () {
-                    document.frm8.submit();
-                }
-            },
-            danger: {
-                text: "No",
-                btnClass: 'btn-red',
-                action: function () {
-
-                }
-            },
-        }
-    });
-
-}
-function alert_confirm9() {
-    
-    $.confirm({
-        theme: 'material',
-        title: "Confirmación",
-        icon: 'fa fa-info',
-        content: "¿Estas seguro de enviar la calificación?",
-        columnClass: 'small',
-        typeAnimated: true,
-        cancelButtonClass: 'btn-primary',
-        draggable: true,
-        dragWindowBorder: false,
-        buttons: {
-            info: {
-                text: "Si",
-                btnClass: 'btn-primary',
-                action: function () {
-                    document.frm9.submit();
-                }
-            },
-            danger: {
-                text: "No",
-                btnClass: 'btn-red',
-                action: function () {
-
-                }
-            },
-        }
-    });
-
-}
-function alert_confirm10() {
-    
-    $.confirm({
-        theme: 'material',
-        title: "Confirmación",
-        icon: 'fa fa-info',
-        content: "¿Estas seguro de enviar la calificación?",
-        columnClass: 'small',
-        typeAnimated: true,
-        cancelButtonClass: 'btn-primary',
-        draggable: true,
-        dragWindowBorder: false,
-        buttons: {
-            info: {
-                text: "Si",
-                btnClass: 'btn-primary',
-                action: function () {
-                    document.frm10.submit();
                 }
             },
             danger: {

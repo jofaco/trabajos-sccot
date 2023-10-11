@@ -32,7 +32,7 @@
         <div class="col-6 ">
             <h5 >Autor de correspondencia: {{ object.Autor_correspondencia|safe }}</h5>
             <h5 >Correo de autor: {{ object.Autor_correspondencia.email|safe }}</h5>
-            <h5 >Telefono de autor: {{ object.Autor_correspondencia.celular|safe }}</h5>
+
             <h5 >institución principal: <small>{{ object.institucion_principal |safe}}</small></h5>
         </div>
         <div class="col-2 ">
@@ -43,24 +43,7 @@
         </div>
     </div>
     <br>    
-    <div class="container">
-        
-        {% if autores_ingreso %}
-            <div class="row ${1| ,row-cols-2,row-cols-3, auto,justify-content-md-center,|}">
-                
-                {% for autor in autores_ingreso %}
-                <div class="col-lg-4 col-md-6 col-12 align-content-center">
-                    <h5 >Autor de ingreso: {{autor.autorIN}}</h5>
-                    <h5 >Correo de autor: {{ autor.autorIN.email|safe }}</h5>
-                    <h5 >Telefono de autor: {{ autor.autorIN.celular|safe }}</h5>
-                </div>
-                {% endfor %}
-                    
-            </div>
-        {% endif %}      
-        
-    </div>
-    <br>
+    
     <div class="container ">
         <h5 >OBSERVACIONES: <small>{{ object.observaciones |safe}}</small></h5>
         <br>
@@ -110,18 +93,11 @@
         <div class="container">
             <ul>
                 <li style="font-size: 20px;">
-                    <a href="/media/{{ manuscrito.manuscrito }}" target="_blank">{{manuscrito.tituloM}}</a>
+                    <a href="/media/{{ manuscrito.manuscrito }}">{{manuscrito.tituloM}}</a>
                 </li>
             </ul>
         </div>
-            {% if manuscritos|length == 1 %}
-                <div class="container-fluid !justify !spacing">
-                    <div class="d-grid gap-2 col-4 mx-auto">
-                        <a href="{% url 'generar_pdf' manuscrito.id %}" class="btn btn-primary">Generar PDF</a>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}            
+        {% endfor %}
         {%  endif   %}
         <br>
         
@@ -145,20 +121,13 @@
                 {% for evaluador in  evaluadores %}
                     <div class="col-lg-4 col-md-6 col-12 ">
                         <h5>Nombre: <small>{{evaluador.evaluador}}</small> </h5>
-                        <h5>Correo: <small>{{evaluador.evaluador.email}}</small> </h5>
                         <h5>Calificación: <small>{{evaluador.calificacion}}</small> </h5>
                         <h5>Observaciones y/o comentarios</h5>
                         <div class="container" style="word-wrap: break-word;">
                             {{evaluador.comentario}}
                         </div>
                         <h5>Fecha: <small>{{evaluador.fecha_evaluacion}}</small></h5>
-                        <a href="https://api.whatsapp.com/send?phone=+57{{evaluador.evaluador.celular}}&text=Buen&nbsp;día&nbsp;Doctor&nbsp;{{evaluador.evaluador}}&nbsp;Reciba&nbsp;un&nbsp;cordial&nbsp;saludo,&nbsp;
 
-                        Le&nbsp;recuerdo&nbsp;realizar&nbsp;la&nbsp;evaluación&nbsp;del&nbsp;trabajo&nbsp;asignado(s)&nbsp;a&nbsp;traves&nbsp;del&nbsp;siguiente&nbsp;enlace:&nbsp;https://trabajos.sccot.org/accounts/login/&nbsp;
-                        
-                        Agradecemos&nbsp;su&nbsp;valiosa&nbsp;colaboración,&nbsp;ya&nbsp;que&nbsp;estamos&nbsp;a&nbsp;pocas&nbsp;semanas&nbsp;del&nbsp;magno&nbsp;evento&nbsp;68°&nbsp;Congreso&nbsp;Nacional&nbsp;SCCOT&nbsp;y&nbsp;debemos&nbsp;comunicarle&nbsp;a&nbsp;los&nbsp;autores&nbsp;del&nbsp;trabajo&nbsp;su&nbsp;calificación&nbsp;final&nbsp;para&nbsp;su&nbsp;presentación&nbsp;en&nbsp;el&nbsp;congreso.&nbsp;
-
-                        Nota:&nbsp;Recordamos&nbsp;que&nbsp;este&nbsp;trabajo&nbsp;ha&nbsp;sido&nbsp;asignado&nbsp;desde&nbsp;el&nbsp;mes&nbsp;de&nbsp;febrero." class="btn btn-success" target="_blank">Enviar Recordatorio whatsapp</a>
                     </div>                                      
                 {% endfor %} 
             </div>

@@ -13,13 +13,9 @@ urlpatterns = [
     path('evaluacionPruebasDX/<int:pk>/',views.plantilla2_evaluacion.as_view(), name='evaluacionPruebasDX'),
     path('evaluacionRSyMA/<int:pk>/',views.plantilla3_evaluacion.as_view(), name='evaluacionRSyMA'),
     path('evaluacionSC/<int:pk>/',views.plantilla4_evaluacion.as_view(), name='evaluacionSC'),
+    path('evaluacionCT/<int:pk>/',views.plantilla7_evaluacion.as_view(), name='evaluacionCT'),
     path('evaluacionCyC/<int:pk>/',views.plantilla5_evaluacion.as_view(), name='evaluacionCyC'),
     path('evaluacionCOHORTES/<int:pk>/',views.plantilla6_evaluacion.as_view(), name='evaluacionCOHORTES'),
-    path('evaluacionCT/<int:pk>/',views.plantilla7_evaluacion.as_view(), name='evaluacionCT'),
-    path('evaluacionANATOMICOyTC/<int:pk>/',views.plantilla8_evaluacion.as_view(), name='evaluacionANATOMICOyTC'),
-    path('evaluacionVALIDACIONESCALAS/<int:pk>/',views.plantilla9_evaluacion.as_view(), name='evaluacionVALIDACIONESCALAS'),
-    path('evaluacionCONGRESO/<int:pk>/',views.plantilla10_evaluacion.as_view(), name='evaluacionCONGRESO'),
-
     path('evaluacionEP/<int:pk>/',views.plantillaEP_evaluacion.as_view(), name='evaluacionEP'),
 
 ]

@@ -90,7 +90,7 @@ $(function () {
         var parameters = new FormData(this);
         parameters.append('action', 'create_especialidad');
         $.ajax({
-            url: '/ajax_especialidades/', 
+            url: 'ajax_especialidades', 
             type: 'GET',
             data:{ 'especialidad': especialidad} ,
             headers: {

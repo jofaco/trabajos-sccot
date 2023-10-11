@@ -8,38 +8,13 @@
           <div id="alert-box"></div>
           <div class="container" >
             <div class="container  !align !spacing">
-              <p class="mb-0 h6">Apreciado colega, a continuación encuentra el formato de calificación para los E-póster. Le solicitamos leer cuidadosamente el texto y calificar cada item entre 0 y 5 mediante el menú desplegable correspondiente. La calificación final se obtendrá del promedio de puntaje de cada pregunta <br>
-                Todos los items deben ser calificados. Si tiene duda o reparo en alguno o algunos items, por favor no dude en consignarlo en la casilla de observaciones / comentarios ubicada al final del formato, uno de los miembros del comité las leerá y tomará en cuenta.
-              </p>
-              <hr class="my-3 border border-dark">
+              <p >Apreciado colega, a continuación encuentra el formato de calificación para los E-póster. Le solicitamos leer cuidadosamente el texto y calificar cada item  entre 1 y 10 mediante el menú desplegable correspondiente. La calificación final se obtendrá del promedio de puntaje de cada pregunta</p>
+              <hr>
+              <p>Todos los  items deben ser calificados. Si tiene duda o reparo en alguno o algunos items, por favor no dude en consignarlo en la casilla de observaciones / comentarios ubicada al final del formato, uno de los miembros del comité las leerá y tomará en cuenta.</p>
             </div>
             <form action="{% url 'evaluacionEP' object.id %}" method="post">{% csrf_token %}
               {% for row in form %}              
               <div class=" container" >
-                  {% if "Es conciso, pero explica suficientemente el trabajo." in row.label_tag  %}
-                    <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">1. Título</p> 
-                  {% endif %}
-                  {% if "Explica el interés especial del caso" in row.label_tag  %}
-                    <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">2. Introducción y justificación.</p> 
-                  {% endif %}
-                  {% if "Reporta adecuadamente las pruebas diagnósticas pertinentes e intervenciones." in row.label_tag  %}
-                    <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">3. Material y método o reporte del caso</p> 
-                  {% endif %}
-                  {% if "Se reporta en forma objetiva los resultados." in row.label_tag  %}
-                    <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">4. Resultados</p> 
-                  {% endif %}
-                  {% if "Se expone el interés del caso o casos" in row.label_tag  %}
-                    <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">5. Discusión</p> 
-                  {% endif %}
-                  {% if "Distribución de texto" in row.label_tag  %}
-                    <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">6. Presentación</p> 
-                  {% endif %}
-                  {% if "Referencias pertinentes incluidas en el texto presentado." in row.label_tag  %}
-                    <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">7. Referencias, máximo 10</p> 
-                  {% endif %}
-                  {% if "Comentarios y/o observaciones." in row.label_tag  %}
-                    <p style="color: rgb(23, 15, 139); margin-top: 20px; text-align: left;font-size: 15px;">8. Comentarios del evaluador</p> 
-                  {% endif %}
                   <div class="grid-container" >
                         <div  class="grid-container" for="{{ row.html_name }}"  >
                         {{ row.label_tag }}
@@ -48,7 +23,7 @@
                   </div>                                                         
                       <p style="color: rgb(15, 139, 139); margin-top: 20px; text-align: center;font-size: larger;">{{ row.help_text }}</p>                      
                       
-                  <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>
+                  <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>                       
               </div>
               {% endfor %}
               <br>

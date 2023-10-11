@@ -217,7 +217,6 @@ class TrabajosCForm(ModelForm):
     def __init__(self,*args,**kwargs):
         super (TrabajosCForm,self ).__init__(*args,**kwargs) 
         self.fields['curso'].queryset = Cursos.objects.filter(fecha_fin__gte=datetime.today())
-        self.fields['Autor_correspondencia'].queryset = Autores.objects.all()
     class Meta:
         model= Trabajos
         exclude = ['fecha_inicio','fecha_fin','fecha_modificacion','evaluador','modificado_por']
@@ -266,7 +265,7 @@ class TablasForm(ModelForm):
             'tabla' : 'Otros',
         }
         widgets = {          
-            'tabla':forms.FileInput(attrs={'class': 'form-control','multiple':False}),
+            'tabla':forms.FileInput(attrs={'class': 'form-control','multiple':True}),
             
         }
 
@@ -283,21 +282,6 @@ class Trabajo_AutoresForm(ModelForm):
             'autor':forms.Select(attrs={'class': 'form-control select2','multiple':True}),
             
         }
-
-class Trabajo_AutoresINForm(ModelForm):
-    class Meta:
-        model= Trabajos_has_autoresIngreso
-        fields = '__all__'
-        labels = {
-            'trabajo' : 'Trabajo',
-            'autorIN' : 'Autores para Ingreso',
-        }
-        widgets = {          
-            'trabajo':forms.Select(attrs={'class': 'form-control select2','multiple':True}),
-            'autorIN':forms.Select(attrs={'class': 'form-control select2','multiple':True}),
-            
-        }
-
 
 class Trabajo_InstitucionesForm(ModelForm):
     class Meta:
