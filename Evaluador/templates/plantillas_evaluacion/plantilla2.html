@@ -14,6 +14,8 @@
           <div class="container" >
             <div class="container  !align !spacing">
               <p>Apreciado colega, a continuación encuentra el formato de calificación para {{title}} <b>Le solicitamos leer cuidadosamente el texto y calificar cada item  entre 0 y 5 mediante el menú desplegable correspondiente.</b>  La calificación final se obtendrá del promedio de puntaje de cada pregunta</p>
+              <p>Todos los  items deben ser calificados. Si tiene duda o reparo en alguno o algunos items, por favor no dude en consignarlo en la casilla de observaciones / comentarios ubicada al final del formato, uno de los miembros del comité las leerá y tomará en cuenta.</p>
+              <hr>
             </div>           
             <form action="{% url rutaUrl object.id %}" method="post" name={{nombreForm}} id={{nombreForm}}>{% csrf_token %}
               {% for row in form %}              
