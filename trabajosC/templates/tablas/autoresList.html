@@ -1,8 +1,5 @@
-<div class="d-grid gap-1 col-4 mx-auto">
-    <button onclick="abrir_modal_createAutor(`{% url 'create_Autor' %}`)" class="btn btn-success">Registrar Autor</button>
-</div>
-<br>
-<div class="container-fluid" >
+<div class="container-fluid">
+    <button onclick="abrir_modal_createAutor(`{% url 'create_Autor' %}`)" class="btn btn-success py-2 mt-4">Registrar Autor</button>
     <table class="table table-light" id="autores">
         <thead>
             <tr>
@@ -11,7 +8,6 @@
               <th >Nombres</th>
               <th >Apellidos</th>
               <th >Email</th>
-              <th >Celular</th>
               <th >Institución</th>
               <th >Ciudad</th>
               <th >Pais</th>
@@ -27,7 +23,6 @@
                 <td>{{object.Nombres}}</td>
                 <td>{{object.Apellidos}}</td>
                 <td>{{object.email}}</td>
-                <td>{{object.celular}}</td>
                 <td>{{object.institucion}}</td>
                 <td>{{object.ciudad}}</td>
                 <td>{{object.pais}}</td>
@@ -35,11 +30,11 @@
                 <td>
                     <div class="d-grid gap-2 col-12 mx-auto"> 
                         {% if object.role_id != 2 %}
-                            <a href="{% url 'designarEvaluador' object.id %}" class="btn btn-info">Hacer Evaluador</a>
+                            <a href="{% url 'designarEvaluador' object.id %}" class="btn btn-outline-dark">Hacer Evaluador</a>
                         {% else %}
-                            <a href="{% url 'eliminarEvaluador' object.id %}" class="btn btn-primary">Olvidar Evaluador</a>
+                            <a href="{% url 'eliminarEvaluador' object.id %}" class="btn btn-dark">Olvidar Evaluador</a>
                         {% endif %}
-                        <button onclick="abrir_modal_editAutor(`{% url 'edit_Autor' object.id %}`)" class="btn btn-success"> <i class="fa-solid fa-file-pen"></i></button>
+                        <button onclick="abrir_modal_editAutor(`{% url 'edit_Autor' object.id %}`)" class="btn btn-primary"> <i class="fa-solid fa-file-pen"></i></button>
                         <button onclick="abrir_modal_deleteAutor(`{% url 'delete_Autor' object.id %}`)" class="btn btn-danger"> <i class="fa-solid fa-trash-alt"></i></button>
                     </div>
                     

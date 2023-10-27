@@ -1,12 +1,9 @@
-<div class="d-grid gap-1 col-4 mx-auto">
-    <a href="{% url 'misEvaluaciones'  %}" class="btn btn-success">Ver Evaluaciones</a>
-</div>
-<br>
-<div class="container-fluid !direction !spacing">
-    <table class="table table-light" id="trabajos">
-        <thead>
-            <tr>
-              <th >#</th>
+<div class="container-fluid  !direction !spacing">
+    <a href="{% url 'misEvaluaciones'  %}" class="btn btn-success py-2   ">Ver Evaluaciones</a>
+    <table class="table table-light " id="trabajos">
+        <thead >
+            <tr >
+              <!--<th >#</th>-->
               <th >Tipo de Trabajo</th>
               <th >Titulo</th>
               <th >Autor Correspondencia</th>
@@ -22,7 +19,7 @@
         <tbody>
             {% for object in trabajos %}
                 <tr>
-                    <td>{{object.identificador}}</td>
+                    <!-- <td>{{object.identificador}}</td>-->
                     <td>{{object.tipo_trabajo}}</td>
                     <td>{{object.titulo}}</td>
                     <td>{{object.Autor_correspondencia}}</td>
@@ -57,17 +54,28 @@
                         {% endfor %}
                     </td>
                     <td>{{object.curso}}</td>
-                    <td>{{object.calificacion}}</td>
+                    <td>
+                        {% if object.calificacion ==  None %} 
+                            <p>Sin calificar</p>
+                        {% else %} 
+                            {{object.calificacion}} 
+                        {% endif %}
+                    </td>
                         
                     <td>
                         <div class="d-grid gap-2 col-12 mx-auto"> 
-                            <a href="{% url 'detalleTrabajo' object.id %}" class="btn btn-success"> <i class="fa-solid fa-file"></i> VER</a>
+                            <a href="{% url 'detalleTrabajo' object.id %}" class="btn btn-success" title="Ver Trabajo"> 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16" >
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                  </svg>    
+                            </a>
                             {% for manuscrito in manuscritos %}
                             {% if manuscrito.trabajo_id == object.id and '.doc' in manuscrito.tituloM %}
-                            <button onclick="abrir_modal_editManus(`{% url 'editar_manuscrito' manuscrito.id %}`)" class="btn btn-primary"><i class="fa-solid fa-file-edit"></i> Editar Manuscrito</button>
+                            <button title="Editar Trabajo"  onclick="abrir_modal_editManus(`{% url 'editar_manuscrito' manuscrito.id %}`)" class="btn btn-primary" ><i class="fa-solid fa-file-edit"></i> </button>
                             {%  endif   %}
                             {% if manuscrito.trabajo_id == object.id and '.ppt' in manuscrito.tituloM or manuscrito.trabajo_id == object.id and '.mp4' in manuscrito.tituloM or manuscrito.trabajo_id == object.id and '.mov' in manuscrito.tituloM or manuscrito.trabajo_id == object.id and '.avi' in manuscrito.tituloM %}
-                            <button onclick="abrir_modal_editManus(`{% url 'editar_manuscrito' manuscrito.id %}`)" class="btn btn-primary"><i class="fa-solid fa-file-edit"></i> Editar Manuscrito</button>
+                            <button onclick="abrir_modal_editManus(`{% url 'editar_manuscrito' manuscrito.id %}`)" class="btn btn-primary" title="Editar Trabajo"><i class="fa-solid fa-file-edit"></i> </button>
                             {%  endif   %}
                             {% endfor %}                      
                         </div>                    

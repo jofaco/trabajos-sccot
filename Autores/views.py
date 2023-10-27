@@ -6,6 +6,7 @@ from django.urls import  reverse_lazy
 from django.shortcuts import  redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
+from django.core.paginator import Paginator
 
 from Autores.forms import AutoresForm
 
@@ -171,5 +172,10 @@ class AutoresListView(LoginRequiredMixin,IsSuperuserMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Listado de Autores'
         context['list_url'] = reverse_lazy('autor_list')
-        context['autores'] = Autores.objects.all().defer( "especialidad","direccion")
+        autoresAll = Autores.objects.all().defer( "especialidad","direccion")
+        page = self.request.GET.get('page',1)
+        pag = Paginator(autoresAll,10)
+        autores = pag.get_page(page)
+
+        context['autores'] = autores
         return context

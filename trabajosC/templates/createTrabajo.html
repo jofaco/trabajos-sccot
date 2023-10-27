@@ -53,23 +53,23 @@
               </div>
             {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Bien:</strong> {{ message }}
+                <strong>Genial:</strong> {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>WARNING:</strong> {{ message }}
+                <strong>Precaución:</strong> {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             {% endif %}
         {% endfor %}
     </ul>
     {% endif %}
-    <div class="container">
+    <div class="container ">
         <form action="" id="trabajo_form" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {% if action == 'add' %}
-            <h1 style="color: rgb(9, 132, 240);" class="card-title"><center>
+            <h1  class=" text-light card-title bg-dark py-5"><center>
                 <i class="fas fa-plus"></i>
                     {% else %}
                     <i class="fas fa-edit"></i>
@@ -78,10 +78,11 @@
             </center></h1>
             <br>
             <br>
+            <div class="form-group d-flex">
             {% for row in form %}
             {% if  "Curso" in row.label_tag  %}
-            <div class=" container" >
-                <div class="grid-container" >
+            <div class=" container col-6" >
+                <div class="grid-container " >
                     <label  class="textLabel" for="{{ row.html_name }}"  >
                     {{ row.label_tag }}
                 </label>
@@ -94,7 +95,7 @@
 
             {% for row in form %}
             {% if  "Tipo de trabajo" in row.label_tag  %}
-            <div class=" container" >
+            <div class=" container col-6" >
                 <div class="grid-container" >
                     <label  class="textLabel" for="{{ row.html_name }}"  >
                     {{ row.label_tag }}
@@ -105,10 +106,12 @@
             </div>
             {%  endif %}
             {% endfor %}
+        </div>
+        <div class="form-group d-flex">
 
             {% for row in form %}
             {% if  "Subtipo" in row.label_tag  %}
-            <div class=" container"  >
+            <div class=" container col-6"  >
                 <div class="grid-container" id="subtipoLabel_id" >
                     <label  class="textLabel" for="{{ row.html_name }}">
                     {{ row.label_tag }}
@@ -122,7 +125,7 @@
 
             {% for row in form %}
             {% if "titulo" in row.label_tag   %}
-            <div class=" container" >
+            <div class=" container col-6" >
                 <div class="grid-container" >
                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"        data-bs-target="#tituloInfoModal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
@@ -139,6 +142,8 @@
             </div>
             {%  endif %}
             {% endfor %}
+        </div>
+
 
             {% for row in form %}
             {%  if "Autor de correspondencia" in row.label_tag  %}
@@ -166,9 +171,11 @@
             {%  endif %}
             {% endfor %}
             <br>
+            <div class="form-group d-flex ">
+
             {% for row in trabajo_autorForm %}
             {%  if "Autores" in row.label_tag %}
-            <div class=" container" >
+            <div class=" container col-6" >
                 <div class="form-group">
                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"        data-bs-target="#autorInfoModal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
@@ -195,7 +202,7 @@
             {% endfor %}
             {% for row in trabajo_autorINForm %}
             {%  if "Autores para Ingreso" in row.label_tag %}
-            <div class=" container" >
+            <div class=" container col-6" >
                 <div class="form-group" id="autorIN_id">
                     <label  class="textLabel" for="{{ row.html_name }}" >
                         {{ row.label_tag }}
@@ -209,6 +216,8 @@
             <br>
             {%  endif %}
             {% endfor %}
+        </div>
+
             {% for row in form %}
             {% if "Observaciones" in row.label_tag %}
             <div class=" container" >
@@ -222,10 +231,10 @@
             </div>
             {%  endif %}
             {% endfor %}
-
+            <div class="form-group d-flex">
             {% for row in form %}
             {%  if "Institución principal" in row.label_tag %}
-            <div class=" container" >
+            <div class=" container col-6" >
                 <div class="form-group">
                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"        data-bs-target="#instInfoModal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
@@ -251,7 +260,7 @@
             {% endfor %}
             {% for row in trabajo_instiForm %}
             {%  if "Otras instituciones" in row.label_tag %}
-            <div class=" container" >
+            <div class=" container col-6" >
                 <div class="form-group">
                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"        data-bs-target="#instInfoModal2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
@@ -276,6 +285,7 @@
             <br>
             {%  endif %}
             {% endfor %}
+        </div>
             {% for row in form %}
             {% if  "Resumen en español" in row.label_tag  %}
             <div class=" container" >
@@ -361,9 +371,10 @@
             <br>
             {%  endif %}
             {% endfor %}
+            <div class="d-flex form-group">
 
             {% for row in manuscritosForm %}
-            <div class=" container" >
+            <div class=" container col-6" >
                 <div class="grid-container" id="eposterLabel_id" hidden>
                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"        data-bs-target="#eposterInfoModal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
@@ -392,7 +403,7 @@
             {% endfor %}
             
             {% for row in tablasForm %}
-            <div class=" container" >
+            <div class=" container col-6" >
                 <div class="grid-container"  id="tablaLabel_id">
                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"        data-bs-target="#{{row.html_name}}InfoModal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
@@ -408,11 +419,12 @@
                 <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>                       
             </div>
             {% endfor %}
+        </div>
             
             <input type="hidden" name="action" value="{{ action }}">
               <br>
               <div class="d-grid gap-2 col-4 mx-auto">
-                <button type="submit" class="btn btn-primary" id="botonEnviar">Guardar</button>
+                <button type="submit" class="btn btn-success py-3 " id="botonEnviar"><h5>Guardar</h5></button>
               </div>
           </form>
     </div>

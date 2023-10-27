@@ -13,7 +13,7 @@ from django.views.generic import CreateView,DetailView,UpdateView
 from django.shortcuts import  redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.core.paginator import Paginator
 from Cursos.forms import EspecialidadesForm
 from Evaluador.forms import selectPlantillaForm
 from trabajosC.forms import AutoresForm2, AutoresForm3, EvaluadorTrabajoForm, InstitucionForm, KeywordForm, ManuscritosForm, Palabras_clavesForm, TablasForm, Trabajo_AutoresForm,Trabajo_AutoresINForm, Trabajo_InstitucionesForm, Trabajo_KeywordsForm, Trabajo_PalabrasForm, TrabajosCForm
@@ -51,10 +51,13 @@ def index(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
 
-            trabajos = Trabajos.objects.filter(curso__in= Cursos.objects.filter(estado=True)).only("identificador","tipo_trabajo", "titulo","Autor_correspondencia", "institucion_principal","curso")
-
-            cursos = Cursos.objects.all()
+            trabajosAll2 = Trabajos.objects.filter(curso__in= Cursos.objects.filter(estado=True)).only("identificador","tipo_trabajo", "titulo","Autor_correspondencia", "institucion_principal","curso")
+            page = request.GET.get('page',1)
+            pag = Paginator(trabajosAll2,10)
+            trabajos = pag.get_page(page)
             
+            
+            cursos = Cursos.objects.all()
             autores_trab = Trabajos_has_autores.objects.filter(trabajo__in = trabajos).select_related('trabajo')
             palabras_trab = Trabajos_has_palabras.objects.filter(trabajo__in = trabajos).select_related('trabajo')
 
@@ -68,11 +71,13 @@ def index2(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
 
-            trabajos = Trabajos.objects.filter(curso__in= Cursos.objects.filter(estado=True)).only("identificador","tipo_trabajo", "titulo","Autor_correspondencia", "institucion_principal","curso")
-            
+            trabajosAll = Trabajos.objects.filter(curso__in= Cursos.objects.filter(estado=True)).only("identificador","tipo_trabajo", "titulo","Autor_correspondencia", "institucion_principal","curso")
+            page = request.GET.get('page',1)
+            pag = Paginator(trabajosAll,10)
+            trabajos = pag.get_page(page)
+
             autores_trab = Trabajos_has_autores.objects.filter(trabajo__in = trabajos).select_related('trabajo')
             palabras_trab = Trabajos_has_palabras.objects.filter(trabajo__in = trabajos).select_related('trabajo')
-
             manuscritos = Manuscritos.objects.filter(trabajo__in = trabajos).select_related('trabajo')
             return render(request,'admin.html', {'trabajos':trabajos,'manuscritos':manuscritos,'autores_trab':autores_trab,'palab_trab':palabras_trab, 'formEspecialidad' : EspecialidadesForm()})
         else:

@@ -271,6 +271,7 @@ var trabajo={
         });
         $('#trabajo_form').on('submit', function (e) {
             e.preventDefault();    
+            console.log(e);
             trabajo.items.tipo_trabajo = $('select[name="tipo_trabajo"]').val();
             trabajo.items.subTipo_trabajo = $('select[name="subtipo_trabajo"]').val();
             trabajo.items.titulo = $('input[name="titulo"]').val();
@@ -339,6 +340,7 @@ var trabajo={
             
             if (contador == 0) {
                 var parameters = new FormData();
+                console.log(trabajo);
                 parameters.append('action', $('input[name="action"]').val());
                 parameters.append('trabajo', JSON.stringify(trabajo.items));
                 for (var i = 0; i < $('input[name="manuscrito"]').get(0).files.length; ++i) {

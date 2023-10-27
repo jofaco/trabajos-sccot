@@ -35,34 +35,81 @@
     {% include 'especialidadesModal2.html' %}
 
     
-    <h2><center>ADMINISTRADOR😁</center></h2>
-    <hr>
-    <div class="container botonesNav">
-        <div class="btn-group-lg" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-            <a class="btn btn-outline-primary" for="btnradio4" href="{% url 'autor_list' %}">Autores</a>
-          
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" >
-            <a class="btn btn-outline-primary" for="btnradio2" href="{% url 'inicio'  %}">Trabajos Principal</a>
-          
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-            <a class="btn btn-outline-primary" for="btnradio3" href="{% url 'inicio'  %}">Cursos</a>
+    <div class=" " style="box-shadow: 0px 0px 20px gray;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+            <a class="navbar-brand text-light d-flex align-items-center justify-content-center" href="#">
+                <div>
+                    <svg class="bg-success rounded" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                    </svg>    
+                </div>
+                <div class="mx-2 mt-1">
+                    Administrador
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav mr-auto">
+               
+              </ul>
 
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="btnradio2" >Trabajos con archivos</label>
-          
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-            <a class="btn btn-outline-primary" for="btnradio4" href="{% url 'user:user_list' %}">Usuarios</a>
-          
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
-            <a class="btn btn-outline-primary" for="btnradio5" href="{% url 'reportes'  %} ">Reportes</a>
-        </div>
+                  <div class="">
+                    <div class="container botonesNav ">
+                        <div class="" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                            <a class="btn btn-outline-light mt-1" for="btnradio4" href="{% url 'autor_list' %}">Autores</a>
+                          
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" >
+                            <a class="btn btn-outline-light mt-1" for="btnradio2" href="{% url 'inicio'  %}">Trabajos Principal</a>
+                          
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                            <a class="btn btn-outline-light mt-1" for="btnradio3" href="{% url 'inicio'  %}">Cursos</a>
+                
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" checked>
+                            <label class="btn btn-outline-light mt-1" for="btnradio2" >Trabajos con archivos</label>
+                          
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                            <a class="btn btn-outline-light mt-1" for="btnradio4" href="{% url 'user:user_list' %}">Usuarios</a>
+                          
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
+                            <a class="btn btn-outline-light mt-1" for="btnradio5" href="{% url 'reportes'  %} ">Reportes</a>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+          </nav>
     </div>
+
+   
+   
     <br>
     {% include 'messages.html' %}
 
     <div class="container-fluid " id="contenedorTrabajos">
         {% include 'tablas/trabajosList.html' %}
+        <div class="d-flex justify-content-end mx-3">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if trabajos.has_previous %}
+                        <li class="page-item border border-primary rounded">
+                            <a class="page-link" href="/trabajos_manuscritos/?page={{trabajos.previous_page_number}}">Anterior</a>
+                        </li>
+                    {% endif %}
+                    {% for i in trabajos.paginator.page_range  %}
+                        <li class="page-item ">
+                            <a class="page-link" href="/trabajos_manuscritos/?page={{i}}">{{i}}</a>
+                        </li>
+                    {% endfor %}
+                    {% if trabajos.has_next %}
+                        <li class="page-item border border-primary rounded">
+                            <a class="page-link" href="/trabajos_manuscritos/?page={{trabajos.next_page_number}}">Siguiente</a>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </nav>
+        </div>
         <div class="modal fade contenedor" id="editManus_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         </div>
     </div>    
@@ -70,11 +117,13 @@
 {% endblock %}
 {% block javascript %}
        <script type="text/javascript">
-            
             $('#trabajos').DataTable({
                 responsive: true,
-                autoWidth: false
-            });             
+                autoWidth: false,
+                paging:false,
+                info:false
+            });        
+                 
             function abrir_modal_editManus(url){
                 $('#editManus_Modal').load(url, function (){
                     $(this).modal('show');

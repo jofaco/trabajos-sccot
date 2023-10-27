@@ -1,12 +1,9 @@
-<div class="d-grid gap-1 col-4 mx-auto">
-    <button onclick="abrir_modal_createCurso(`{% url 'create_Curso' %}`)" class="btn btn-success"> Registrar Curso</button>
-</div>
-<br>
 <div class="container-fluid !justify !spacing">
+    <button onclick="abrir_modal_createCurso(`{% url 'create_Curso' %}`)" class="btn btn-success py-2 my-4"> Registrar Curso</button>
     <table class="table table-light" id="cursos">
         <thead>
             <tr>
-              <th >#</th>
+              <!--<th >#</th>-->
               <th >Nombre Curso</th>
               <th >Especialidad</th>
               <th >Fecha Inscripción</th>
@@ -21,7 +18,7 @@
             {% for object in cursos %}
     
             <tr>
-                <td>{{object.id}}</td>
+               <!-- <td>{{object.id}}</td>-->
                 <td>{{object.nombre_curso}}</td>
                 <td>{{object.especialidad}}</td>
                 <td>{{object.fecha_inicio|date:'d-m-Y'}}</td>

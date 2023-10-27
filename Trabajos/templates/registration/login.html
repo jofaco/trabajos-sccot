@@ -10,45 +10,40 @@ Login
 
 {%  endblock  %} 
 {%  block content   %}
-<br>
-<div class="container" >
-    <br>
-    <div class="row">
-        
+<div class="mt-3">
+<p class="text-light">.</p>
+    <div class="row  h-100 mt-5 me-5">
         <!-- div derecho imagen and texto  -->
-        <div class="col-lg-6 p-5" style="
-        position: relative;">
-            <div class="container">                
-                <div class="" >
-                    <div class="container ">
-                        <img src="{% static 'img/logosccot.png' %}" alt="" width="400rem" >
+        <div class="col ">
+            <div class="">                
+                    <div class="container d-flex justify-content-center align-item-center mt-2">
+                        <img src="{% static 'img/logosccot.png' %}" alt="" width="410rem" >
                     </div>                    
-                </div>
                
             </div>
         </div>
 
-        <div class="col-lg-6  p-5 contenedor">
+        <div class="col-5  text-light p-5 h-100 border-top border-dark border-5 rounded-3 " style="box-shadow:15px 15px 3px #c2c2c2; background-color:#2b197c;">
             <section>
-                <h1 class="tituloInicio" >Iniciar Sesión</h1>
+                <h1 class="tituloInicio text-light">Trabajos Cientificos</h1>
             </section>
             <form method="post" action="{% url 'login' %}">
                 {%  csrf_token %}
                 <div class="form-group mt-4">
-                    <label for="exampleInputEmail1" class="textLabel">Nombre de Usuario</label>
-                    <input type="text" class="form-control" id="" aria-describedby="" name="username" required>
+                    <label for="exampleInputEmail1" class="textLabel h5">Nombre de Usuario</label>
+                    <input type="text" class="form-control" id="" aria-describedby="" name="username" required style="font-weight: bold;font-size: 17px;">
                 
                 </div>
                 <div class="form-group mt-4">
-                    <label for="exampleInputPassword1" class="textLabel">Password</label>
+                    <label for="exampleInputPassword1" class="textLabel h5">Contraseña</label>
                     <input type="password" class="form-control" id="Password1" name="password" required>
                 </div>
                 <br>
                 <section>
                     <div class="container">
-                        <div class="d-grid gap-2 col-6 mx-auto">
-                            <button class="btn btn-primary btn-lg mt-3">
-                                Login
+                        <div class="mx-auto">
+                            <button class="btn btn-outline-light btn-lg mt-3">
+                                Iniciar Sesión
                             </button>
                         </div>
                     </div>
@@ -58,5 +53,7 @@ Login
     </div>
       
 </div>
+</div>
+
 
 {%  endblock  %}

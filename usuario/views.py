@@ -8,6 +8,7 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import  redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, UpdateView, DeleteView
+from django.core.paginator import Paginator
 
 #
 from django.contrib.auth.models import User
@@ -46,7 +47,11 @@ class UserListView(LoginRequiredMixin,IsSuperuserMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Listado de Usuarios'
         context['list_url'] = reverse_lazy('user:user_list')
-        context['usuarios'] = User.objects.all()
+        usuariosAll = User.objects.all()
+        page = self.request.GET.get('page',1)
+        pag = Paginator(usuariosAll,15)
+        usuarios = pag.get_page(page)
+        context['usuarios'] = usuarios
         return context
 
 class UserUpdate(LoginRequiredMixin,IsSuperuserMixin,UpdateView):
