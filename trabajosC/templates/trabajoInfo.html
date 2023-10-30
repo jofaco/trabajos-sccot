@@ -12,7 +12,7 @@
     <div class="container">
         <a href="{% url 'inicio'  %}" class="btn btn-danger">Volver</a>
     </div>
-    <h1><center> {{ object.titulo|safe }}</center></h1>
+    <h2 class="w-75 mx-auto m-3"><center> {{ object.titulo|safe }}</center></h2>
     <div class="container">
         <div class="d-flex justify-content-between flex-wrap ">            
             <div class=" ">
@@ -122,24 +122,25 @@
                     <div class="col-lg-4 col-md-6 col-12 py-3 px-2 card rounded m-2 " style="border-radius: 3px; box-shadow: 4px 4px 0px 0px #e6e6e6;">
                         <h5><small>Nombre:</small> {{evaluador.evaluador}} </h5>
                         <h5><small>Correo:</small>{{evaluador.evaluador.email}} </h5>
-                        <h5><small>Calificación:</small> 
-                        {% if object.calificacion ==  None %} 
-                            Sin calificar
-                        {% else %} 
-                        {{evaluador.calificacion}}
-                        {% endif %}
+                       
+                        <h5><small>Fecha:</small> 
+                            {% if evaluador.calificacion ==  None %} 
+                            {% else %} 
+                            {{evaluador.fecha_evaluacion}}
+                            {% endif %}
+                        </h5>
+                        
+                        <h5><small>Calificación:</small></h5>
+                                {% if evaluador.calificacion ==  None %} 
+                                Sin calificar
+                                {% else %} 
+                                <h3 class="text-primary ">{{evaluador.calificacion}}</h3> 
+                                {% endif %}
                         </h5>
                         <h5><small>Observaciones:</small></h5>
                         <div class="container" style="word-wrap: break-word;">
                             {{evaluador.comentario}}
                         </div>
-                        <h5><small>Fecha:</small> 
-                            {% if object.calificacion ==  None %} 
-                               
-                            {% else %} 
-                            {{evaluador.fecha_evaluacion}}
-                            {% endif %}
-                            </h5>
                         <div class="d-flex justify-content-end mt-2">
 
                             <a href="https://api.whatsapp.com/send?phone=+57{{evaluador.evaluador.celular}}&text=Buen&nbsp;día&nbsp;Doctor&nbsp;{{evaluador.evaluador}}&nbsp;Reciba&nbsp;un&nbsp;cordial&nbsp;saludo,&nbsp;
@@ -155,7 +156,7 @@
             </div>
         
         {% if object.calificacion %}
-        <h2><strong><center>Calificacion = {{object.calificacion}}</center></strong></h2>
+        <h2><strong><center>Promedio = {{object.calificacion}}</center></strong></h2>
         <br>
         {% endif %}
         <div class="d-flex bg-dark justify-content-between align-items-center text-light py-3 px-3 rounded ">

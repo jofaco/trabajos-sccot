@@ -1,7 +1,23 @@
 
 <div class="container-fluid !direction !spacing">
-    <a href="{% url 'misEvaluaciones'  %}" class="btn btn-success py-2 mt-4">Ver Evaluaciones</a>
-    <table class="table table-light" id="trabajos">
+    <div class="d-flex justify-content-between">
+        <div>
+            <a href="{% url 'misEvaluaciones'  %}" class="btn btn-success py-2 mt-4">Ver Evaluaciones</a>
+        </div>
+        <div>
+            <form action="{% url 'inicio' %}" method="post" class="d-flex mt-4">
+                {% csrf_token %}
+                <input type="text" class="form-control mx-2 border-bottom border-1 border-dark" placeholder="Buscar" id="dato2" name="dato2">
+                <button type="submit" class="btn btn-success">Enviar</button>
+            </form>
+                <a href="/"><button type="button" class="btn btn-outline-dark float-right my-2">Quitar Filtro</button></a>
+        </div>
+    </div>
+
+    
+
+  
+    <table class="table table-dark" id="trabajos">
         <thead>
             <tr>
               <!--<th >#</th>-->

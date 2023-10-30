@@ -1,9 +1,23 @@
 <div class="container-fluid">
-    <button onclick="abrir_modal_createAutor(`{% url 'create_Autor' %}`)" class="btn btn-success py-2 mt-4">Registrar Autor</button>
+    <!--
+        <div class="d-flex justify-content-between">
+        <div>
+            <button onclick="abrir_modal_createAutor(`{% url 'create_Autor' %}`)" class="btn btn-success py-2 mt-4">Registrar Autor</button>
+        </div>
+        <div>
+            <form action="{% url 'autor_list' %}" method="post" class="d-flex mt-4">
+                {% csrf_token %}
+                <input type="text" class="form-control mx-2 border-bottom border-1 border-dark" placeholder="Buscar" id="autorSearch" name="autorSearch">
+                <button type="submit" class="btn btn-success">Enviar</button>
+            </form>
+                <a href="Autor/lista/"><button type="button" class="btn btn-outline-dark float-right my-2">Quitar Filtro</button></a>
+        </div>
+    </div>
+    -->
     <table class="table table-light" id="autores">
         <thead>
             <tr>
-              <th ># Identificación</th>
+              <th >Identificación</th>
               <th >Tipo de Identificación</th>
               <th >Nombres</th>
               <th >Apellidos</th>

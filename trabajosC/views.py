@@ -55,7 +55,16 @@ def index(request):
             page = request.GET.get('page',1)
             pag = Paginator(trabajosAll2,10)
             trabajos = pag.get_page(page)
-            
+            if request.method == 'POST':
+                dato = request.POST.get('dato2')  
+                trabajos = [objeto for objeto in trabajosAll2 
+                                 if dato.lower() in objeto.titulo.lower() or 
+                                    dato.lower() in objeto.Autor_correspondencia.Nombres.lower() or
+                                    dato.lower() in objeto.Autor_correspondencia.Apellidos.lower() or
+                                    dato.lower() in objeto.tipo_trabajo.lower() or
+                                    dato.lower() in objeto.curso.nombre_curso.lower() or
+                                    dato.lower() in objeto.institucion_principal.institucion.lower()
+                              ]
             
             cursos = Cursos.objects.all()
             autores_trab = Trabajos_has_autores.objects.filter(trabajo__in = trabajos).select_related('trabajo')
@@ -75,10 +84,20 @@ def index2(request):
             page = request.GET.get('page',1)
             pag = Paginator(trabajosAll,10)
             trabajos = pag.get_page(page)
+            manuscritos = Manuscritos.objects.filter(trabajo__in = trabajos).select_related('trabajo')
 
+            if request.method == 'POST':
+                dato = request.POST.get('dato')  
+                trabajos = [objeto for objeto in trabajosAll
+                                if dato.lower() in objeto.titulo.lower() or 
+                                    dato.lower() in objeto.Autor_correspondencia.Nombres.lower() or
+                                    dato.lower() in objeto.Autor_correspondencia.Apellidos.lower() or
+                                    dato.lower() in objeto.tipo_trabajo.lower() or
+                                    dato.lower() in objeto.curso.nombre_curso.lower() or
+                                    dato.lower() in objeto.institucion_principal.institucion.lower() 
+                              ]
             autores_trab = Trabajos_has_autores.objects.filter(trabajo__in = trabajos).select_related('trabajo')
             palabras_trab = Trabajos_has_palabras.objects.filter(trabajo__in = trabajos).select_related('trabajo')
-            manuscritos = Manuscritos.objects.filter(trabajo__in = trabajos).select_related('trabajo')
             return render(request,'admin.html', {'trabajos':trabajos,'manuscritos':manuscritos,'autores_trab':autores_trab,'palab_trab':palabras_trab, 'formEspecialidad' : EspecialidadesForm()})
         else:
             return redirect('misEvaluaciones')

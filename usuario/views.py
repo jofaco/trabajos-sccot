@@ -47,10 +47,12 @@ class UserListView(LoginRequiredMixin,IsSuperuserMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Listado de Usuarios'
         context['list_url'] = reverse_lazy('user:user_list')
-        usuariosAll = User.objects.all()
-        page = self.request.GET.get('page',1)
-        pag = Paginator(usuariosAll,15)
-        usuarios = pag.get_page(page)
+        #usuariosAll = User.objects.all()
+        #page = self.request.GET.get('page',1)
+        #pag = Paginator(usuariosAll,15)
+        #usuarios = pag.get_page(page)
+        usuarios = User.objects.all()
+
         context['usuarios'] = usuarios
         return context
 

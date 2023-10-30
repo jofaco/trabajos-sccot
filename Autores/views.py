@@ -172,10 +172,18 @@ class AutoresListView(LoginRequiredMixin,IsSuperuserMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Listado de Autores'
         context['list_url'] = reverse_lazy('autor_list')
-        autoresAll = Autores.objects.all().defer( "especialidad","direccion")
-        page = self.request.GET.get('page',1)
-        pag = Paginator(autoresAll,10)
-        autores = pag.get_page(page)
 
+        #autoresAll = Autores.objects.all().defer( "especialidad","direccion")
+        #page = self.request.GET.get('page',1)
+        #pag = Paginator(autoresAll,10)
+        #autores = pag.get_page(page)
+        #if self.request.method == 'POST':
+        #    dato = self.request.POST.get('autorSearch')  
+        #    autores = [objeto for objeto in autoresAll
+        #                    if dato.lower() in objeto.ciudad.lower()
+        #                        ]
+
+        
+        autores = Autores.objects.all().defer( "especialidad","direccion")
         context['autores'] = autores
         return context

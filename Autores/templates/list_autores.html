@@ -41,9 +41,11 @@
                     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
                 </svg>    
             </div>
-            <div class="mx-2 mt-1">
-                Administrador
-            </div>
+            <a href="/admin">
+                <div class="mt-1">
+                  <p class="h4 text-light text-decoration-none"> Administrador </p>
+                </div>
+            </a>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -80,9 +82,10 @@
 
 
 {% include 'messages.html' %}
-<div class="container-fluid " id="contenedorAutores">
+<div class="container-fluid mt-5 " id="contenedorAutores">
     {% include 'tablas/autoresList.html' %}
-    <div class="d-flex justify-content-end mx-3">
+   <!--
+     <div class="d-flex justify-content-end mx-3">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 {% if autores.has_previous %}
@@ -103,6 +106,7 @@
                 </ul>
             </nav>
     </div>
+   -->
     <div class="modal fade contenedor" id="crearAutor_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: scroll;">
     </div>
     <div class="modal fade contenedor" id="editAutor_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -120,8 +124,9 @@
     $('#autores').DataTable({
         responsive: true,
         autoWidth: false,
-        paging:false,
-        info:false
+        /*paging:false,
+        info:false,
+        searching:false*/
     });
     function abrir_modal_createAutor(url){
         $('#crearAutor_Modal').load(url, function (){
