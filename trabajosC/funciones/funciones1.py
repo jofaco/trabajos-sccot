@@ -67,5 +67,7 @@ def asignar_plantilla(nombre,Trabajo, User):
         plantillaVALIDACIONESCALAS.objects.create(trabajo=Trabajo, user= User)
     elif nombre == "CongresoForm":
         plantillaCONGRESO.objects.create(trabajo=Trabajo, user= User)
+    elif nombre == "CONGRESOESPECIAL2Form":
+        plantillaCONGRESOESPECIAL2.objects.create(trabajo=Trabajo, user= User)
     else:
         plantillaEP.objects.create(trabajo=Trabajo, user= User)

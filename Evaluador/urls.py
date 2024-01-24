@@ -19,6 +19,8 @@ urlpatterns = [
     path('evaluacionANATOMICOyTC/<int:pk>/',views.plantilla8_evaluacion.as_view(), name='evaluacionANATOMICOyTC'),
     path('evaluacionVALIDACIONESCALAS/<int:pk>/',views.plantilla9_evaluacion.as_view(), name='evaluacionVALIDACIONESCALAS'),
     path('evaluacionCONGRESO/<int:pk>/',views.plantilla10_evaluacion.as_view(), name='evaluacionCONGRESO'),
+    path('evaluacionCONGRESOESPECIAL2/<int:pk>/',views.plantilla11_evaluacion.as_view(), name='evaluacionCONGRESOESPECIAL2'),
+
 
     path('evaluacionEP/<int:pk>/',views.plantillaEP_evaluacion.as_view(), name='evaluacionEP'),
 

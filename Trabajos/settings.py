@@ -102,7 +102,7 @@ DATABASES = {
         'USER': 'wilmer',#para deploy
         'PASSWORD':'vcc2022*WP',#para deploy
         #para local
-        #'NAME': 'trabajostest2',
+        #'NAME': 'trabajostestmarlong1',
         #'USER':'root',
         #'PASSWORD':'',
         #'HOST':'localhost',
