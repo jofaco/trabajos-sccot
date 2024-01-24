@@ -152,6 +152,8 @@
     </div>
     <div class="modal fade " id="plantilla10_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
+    <div class="modal fade " id="plantilla11_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div>
     <div class="modal fade " id="plantillaEP_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
 {% endblock %}
@@ -206,6 +208,11 @@
             }
             function abrir_modal_plantilla10(url){
                 $('#plantilla10_Modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+            function abrir_modal_plantilla10(url){
+                $('#plantilla11_Modal').load(url, function (){
                     $(this).modal('show');
                 });
             }
