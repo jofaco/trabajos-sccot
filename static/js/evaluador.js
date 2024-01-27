@@ -352,9 +352,9 @@ function alert_confirm11() {
     
     $.confirm({
         theme: 'material',
-        title: "Confirmación nes",
+        title: "Confirmación",
         icon: 'fa fa-info',
-        content: "¿Estas seguro de enviar la calificación 111?",
+        content: "¿Estas seguro de enviar la calificación ?",
         columnClass: 'small',
         typeAnimated: true,
         cancelButtonClass: 'btn-primary',
