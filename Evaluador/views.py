@@ -733,7 +733,7 @@ class plantilla11_evaluacion(LoginRequiredMixin,UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)        
-        context['title'] = 'Caso especial.'
+        context['title'] = 'Caso especial 2.'
         context['rutaUrl'] = 'evaluacionCONGRESOESPECIAL2'
         context['nombreForm'] ='frm11'
         context['nombreBtn'] = 'btnForm11'

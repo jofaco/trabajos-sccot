@@ -32,7 +32,7 @@ $(function () {
         alert_confirm10();
     });
     $('#btnForm11').on('click', function () {
-        alert_confirm10();
+        alert_confirm11();
     });
 });
 
@@ -323,7 +323,7 @@ function alert_confirm10() {
         theme: 'material',
         title: "Confirmación",
         icon: 'fa fa-info',
-        content: "¿Estas seguro de enviar la calificación?",
+        content: "¿Estas seguro de enviar la calificación 10?",
         columnClass: 'small',
         typeAnimated: true,
         cancelButtonClass: 'btn-primary',
@@ -352,9 +352,9 @@ function alert_confirm11() {
     
     $.confirm({
         theme: 'material',
-        title: "Confirmación",
+        title: "Confirmación nes",
         icon: 'fa fa-info',
-        content: "¿Estas seguro de enviar la calificación?",
+        content: "¿Estas seguro de enviar la calificación 111?",
         columnClass: 'small',
         typeAnimated: true,
         cancelButtonClass: 'btn-primary',

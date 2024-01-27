@@ -549,56 +549,6 @@ class CONGRESOForm(ModelForm):
             'Descripcion_de_objetivos': 'Descripción de objetivos',
             'daprpi': 'Diseño adecuado para responder pregunta de investigación',
             'comite_de_etica':'Comité de ética',
-            
-            'dcira':'Definición de todos los costos importantes y relevantes para cada alternativa',# nuevo metodo 
-            'lecac':'La efectividad clínica de cada alternativa es conocida?',
-            'qecmd':'Qué tan exacta y creíble es la medición de los desenlaces?',
-            'cci':'Se consideró y controló la incertidumbre?',
-            'ritiiu':'Los resultados incluyen todos los items de importancia para los usuarios?',
-            'rg':'Los resultados son generalizables?',
-            'sarclr':'Suficiente análisis de los resultados, comparación con la literatura mas reciente',
-            'rcdpcr':'Las referencias citadas son discutidas y puestas en contexto con los resultados',
-            'asevc':'Análisis de sesgos, efecto de variables de confusión',
-            'avear':'Análisis de la validez externa (aplicabilidad) de los resultados',
-            'comentario':'Observaciones y/o comentarios',
-        }
-        widgets = {
-
-            'titulo':forms.Select(attrs={'class':'form-control'}),
-            'Resumen_estructurado':forms.Select(attrs={'class':'form-control'}),
-            'Palabras_claves':forms.Select(attrs={'class':'form-control'}),
-            'Descripcion_de_justificacion':forms.Select(attrs={'class':'form-control'}),
-            'Descripcion_de_objetivos':forms.Select(attrs={'class':'form-control'}),
-            'daprpi':forms.Select(attrs={'class':'form-control'}),
-            'comite_de_etica':forms.Select(attrs={'class':'form-control'}),
-
-            'dcira':forms.Select(attrs={'class':'form-control'}),# nuevo metodo 
-            'lecac':forms.Select(attrs={'class':'form-control'}),
-            'qecmd':forms.Select(attrs={'class':'form-control'}),
-            'cci':forms.Select(attrs={'class':'form-control'}),
-            'ritiiu':forms.Select(attrs={'class':'form-control'}),
-            'rg':forms.Select(attrs={'class':'form-control'}),
-            'sarclr':forms.Select(attrs={'class':'form-control'}),
-            'rcdpcr':forms.Select(attrs={'class':'form-control'}),
-            'asevc':forms.Select(attrs={'class':'form-control'}),
-            'avear':forms.Select(attrs={'class':'form-control'}),
-            'comentario':forms.Textarea(attrs={'class':'form-control','rows': 3}),
-        }
-
-
-class CONGRESOESPECIAL2Form(ModelForm):
-    class Meta:
-        model= plantillaCONGRESOESPECIAL2
-        exclude = ('trabajo','user','calificacion')
-
-        labels = {
-            'titulo' : 'Título',
-            'Resumen_estructurado' : 'Resumen estructurado',
-            'Palabras_claves':'Palabras claves',
-            'Descripcion_de_justificacion':'Descripción de la justificación',
-            'Descripcion_de_objetivos': 'Descripción de objetivos',
-            'daprpi': 'Diseño adecuado para responder pregunta de investigación',
-            'comite_de_etica':'Comité de ética',
             'dcve':'Definición clara de variables de estudio',
             'Tam_muestra':'Tamaño de Muestra',
             'sarclr':'Suficiente análisis de los resultados, comparación con la literatura más reciente',
@@ -622,5 +572,58 @@ class CONGRESOESPECIAL2Form(ModelForm):
             'lrcdpcr':forms.Select(attrs={'class':'form-control'}),
             'asevc':forms.Select(attrs={'class':'form-control'}),
             'avear':forms.Select(attrs={'class':'form-control'}),
+            'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
+        }
+
+class CONGRESOESPECIAL2Form(ModelForm):
+    class Meta:
+        model= plantillaCONGRESOESPECIAL2
+        exclude = ('trabajo','user','calificacion')
+
+        labels = {
+            'titulo' : 'Título',
+            'Resumen_estructurado' : 'Resumen estructurado',
+            'Palabras_claves':'Palabras claves',
+            'Descripcion_de_justificacion':'Descripción de la justificación',
+            'Descripcion_de_objetivos': 'Descripción de objetivos',
+            'daprpi': 'Diseño adecuado para responder pregunta de investigación',
+            'comite_de_etica':'Comité de ética',
+            'dcve':'Definición clara de variables de estudio',
+            'Tam_muestra':'Tamaño de Muestra',
+            'sarclr':'Suficiente análisis de los resultados, comparación con la literatura más reciente',
+            'lrcdpcr':'Las referencias citadas son discutidas y puestas en contexto con los resultados',
+            'asevc':'Análisis de sesgos, efecto de variables de confusión',
+            'avear':'Análisis de la validez externa (aplicabilidad) de los resultados',
+            'dcira' :'Definición de todos los costos importantes y relevantes para cada alternativa',
+            'lecac' :'La efectividad clínica de cada alternativa es conocida?',
+            'qecmc':'Qué tan exacta y creíble es la medición de los costos?',
+            'qecmd' :'Qué tan exacta y creíble es la medición de los desenlaces?',
+            'cci' :'Se consideró y controló la incertidumbre?',
+            'ritiiu' :'Los resultados incluyen todos los items de importancia para los usuarios?',
+            'rg' :'Los resultados son generalizables?',
+            'comentario':'Observaciones y/o comentarios'
+        }
+        widgets = {
+
+            'titulo':forms.Select(attrs={'class':'form-control'}),
+            'Resumen_estructurado':forms.Select(attrs={'class':'form-control'}),
+            'Palabras_claves':forms.Select(attrs={'class':'form-control'}),
+            'Descripcion_de_justificacion':forms.Select(attrs={'class':'form-control'}),
+            'Descripcion_de_objetivos':forms.Select(attrs={'class':'form-control'}),
+            'daprpi':forms.Select(attrs={'class':'form-control'}),
+            'comite_de_etica':forms.Select(attrs={'class':'form-control'}),
+            'dcve':forms.Select(attrs={'class':'form-control'}),
+            'Tam_muestra':forms.Select(attrs={'class':'form-control'}),
+            'sarclr':forms.Select(attrs={'class':'form-control'}),
+            'lrcdpcr':forms.Select(attrs={'class':'form-control'}),
+            'asevc':forms.Select(attrs={'class':'form-control'}),
+            'avear':forms.Select(attrs={'class':'form-control'}),
+            'dcira':forms.Select(attrs={'class':'form-control'}),
+            'lecac':forms.Select(attrs={'class':'form-control'}),
+            'qecmc':forms.Select(attrs={'class':'form-control'}),
+            'qecmd':forms.Select(attrs={'class':'form-control'}),
+            'cci':forms.Select(attrs={'class':'form-control'}),
+            'ritiiu':forms.Select(attrs={'class':'form-control'}),
+            'rg':forms.Select(attrs={'class':'form-control'}),
             'comentario': forms.Textarea(attrs={'class':'form-control','rows': 3}),
         }

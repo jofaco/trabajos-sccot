@@ -32,7 +32,7 @@ $(function () {
         alert_confirm10();
     });
     $('#btnForm11').on('click', function () {
-        alert_confirm10();
+        alert_confirm11();
     });
 });
 
