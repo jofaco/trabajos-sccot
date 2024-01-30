@@ -1,0 +1,18 @@
+<h1>¿Estás seguro de que deseas eliminar este evaluador?</h1>
+              <p>Evaluador: {{ evaluador.evaluador }} (ID: {{ evaluador.id }})</p>
+              <form id="eliminarForm" action="{% url 'eliminar_evaluador_trabajo' pk %}" method="post">
+                  {% csrf_token %}
+                  <input type="submit" value="Eliminar" class="btn btn-outline-danger">
+              </form>
+          
+              <script>
+                  document.getElementById("eliminarForm").addEventListener("submit", function(event) {
+                      var confirmacion = confirm("¿Estás seguro de que deseas eliminar este evaluador?");
+                      if (!confirmacion) {
+                          event.preventDefault(); // Cancelar el envío del formulario si no se confirma la eliminación
+                      }
+                  });
+              </script>
+
+
+              

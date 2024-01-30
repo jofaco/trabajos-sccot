@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/index_evaluador.css' %}"/>
 {%  endblock  %}
 {%  block content   %}
+
 <div class=" bg-dark text-light pt-3">
     <div class="container">
         <a href="{% url 'inicio'  %}" class="btn btn-danger">Volver</a>
@@ -142,7 +143,41 @@
                             {{evaluador.comentario}}
                         </div>
                         <div class="d-flex justify-content-end mt-2">
-
+                            <!-- CODIGO PARA ELIMINAR EVALUADOR DE UN TRABAJO -->
+                            <div>
+                                {% if evaluador.calificacion > 0 %}
+                                    <!-- No mostrar el botón de eliminar si la calificación es mayor a 0 -->
+                                {% else %}
+                                    <form action="{% url 'eliminar_evaluador_trabajo' pk=evaluador.id %}" method="get" id="eliminarForm" data-nombre="{{evaluador.evaluador}}">
+                                        {% csrf_token %}
+                                        <input type="submit" value="Eliminar" class="btn btn-outline-danger">
+                                    </form>
+                                    <script>
+                                        document.querySelectorAll("#eliminarForm").forEach(form => {
+                                            if (!form.classList.contains("listener-added")) {
+                                                form.addEventListener("submit", function(event) {
+                                                    var nombreEvaluador = this.getAttribute("data-nombre");
+                                                    var nombreEvaluadorPrompt = prompt("Por favor introduzca el nombre del evaluador "+nombreEvaluador.trim())
+                                                    if(nombreEvaluadorPrompt){
+                                                        if(nombreEvaluador.trim() == nombreEvaluadorPrompt.trim()){
+                                                            var confirmacion = confirm("¿Estás seguro que deseas eliminar a "+nombreEvaluador.trim()+" como un evaluador del trabajo?");
+                                                            if (!confirmacion) {
+                                                                event.preventDefault(); // Cancelar el envío del formulario si no se confirma la eliminación
+                                                            }
+                                                        }else{
+                                                            alert("LO SENTIMOS EL NOMBRE INTRODUCIDO NO ES EL MISMO QUE EL NOMBRE DEL EVALUADOR SELECCIONADO")
+                                                            event.preventDefault(); // Cancelar el envío del formulario si no se confirma la eliminación
+                                                        }
+                                                    }
+                                                });
+                                                form.classList.add("listener-added");
+                                            }
+                                        });
+                                    </script>
+                                {% endif %}
+                            </div>
+                            
+                            
                             <a href="https://api.whatsapp.com/send?phone=+57{{evaluador.evaluador.celular}}&text=Buen&nbsp;día&nbsp;Doctor&nbsp;{{evaluador.evaluador}}&nbsp;Reciba&nbsp;un&nbsp;cordial&nbsp;saludo,&nbsp;
                             
                             Le&nbsp;recuerdo&nbsp;realizar&nbsp;la&nbsp;evaluación&nbsp;del&nbsp;trabajo&nbsp;asignado(s)&nbsp;a&nbsp;traves&nbsp;del&nbsp;siguiente&nbsp;enlace:&nbsp;https://trabajos.sccot.org/accounts/login/&nbsp;

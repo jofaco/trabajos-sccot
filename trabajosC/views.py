@@ -17,7 +17,7 @@ from django.core.paginator import Paginator
 from Cursos.forms import EspecialidadesForm
 from Evaluador.forms import selectPlantillaForm
 from trabajosC.forms import AutoresForm2, AutoresForm3, EvaluadorTrabajoForm, InstitucionForm, KeywordForm, ManuscritosForm, Palabras_clavesForm, TablasForm, Trabajo_AutoresForm,Trabajo_AutoresINForm, Trabajo_InstitucionesForm, Trabajo_KeywordsForm, Trabajo_PalabrasForm, TrabajosCForm
-
+from django.views.generic.base import View
 from trabajosC.models import Autores, Cursos, Especialidades, Instituciones, Keywords, Manuscritos, Palabras_claves, Tablas, Trabajos, Trabajos_has_Keywords, Trabajos_has_autores, Trabajos_has_autoresIngreso, Trabajos_has_evaluadores, Trabajos_has_instituciones, Trabajos_has_palabras
 
 from trabajosC.funciones.funciones1 import asignar_plantilla, convert_to_pdf_wd ,generate_pdf_linux
@@ -131,6 +131,21 @@ def ajax_especialidades(request):
         else:                
             return JsonResponse(data)
        
+class EliminarEvaluador(View):
+
+    
+   
+    def eliminar(self, pk):
+        print('entro al eliminar y se llevo ',pk)
+        evaluador = Trabajos_has_evaluadores.objects.get(id=pk)
+        evaluador.delete()
+    
+    def get(self, request, pk):
+        print('entro al get y se llevo ',pk)
+        self.eliminar(pk)
+        return redirect('inicio')
+
+
 
 class registrarTrabajo(CreateView):
     ''' Clase CreateView para registrar los trabajos científicos. 
