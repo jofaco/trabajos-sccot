@@ -168,6 +168,9 @@
                                                             alert("LO SENTIMOS EL NOMBRE INTRODUCIDO NO ES EL MISMO QUE EL NOMBRE DEL EVALUADOR SELECCIONADO")
                                                             event.preventDefault(); // Cancelar el envío del formulario si no se confirma la eliminación
                                                         }
+                                                    }else{
+                                                        event.preventDefault(); // Cancelar el envío del formulario si no se confirma la eliminación
+
                                                     }
                                                 });
                                                 form.classList.add("listener-added");
