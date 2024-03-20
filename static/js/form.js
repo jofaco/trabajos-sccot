@@ -35,7 +35,6 @@ var trabajo={
         Algunos eventos son: Select2 para autores, instituciones, palabras claves y keywords; cambios en lista desplegable, acciones en botones, abrir o cerrar modales y envío de formularios.
         NOTA: Todos los archivos js también hay que crearlos en la carpeta staticfiles en el mismo orden para que funcionen en producción.
         */
-        
         $('#id_tipo_trabajo').on('change',function(){
             var selectValor = $(this).val();    
             if (selectValor === 'E-poster') {
@@ -347,6 +346,24 @@ var trabajo={
                     $('#keywordsModal').modal('hide');
                 });
         });
+        const cantidadPalabrasTituloHTML = document.getElementById('cantidadPalabrasTituloHTML')
+        cantidadPalabrasTituloHTML.innerText = 0
+        $('input[name="titulo"').on('keyup',()=>{
+            let cantidadPalabras = $('input[name="titulo"').val().split('').length
+            cantidadPalabrasTituloHTML.innerText = cantidadPalabras
+        })
+        const cantidadPalabrasResumenEspHTML = document.getElementById('cantidadPalabrasResumenEspHTML')
+        cantidadPalabrasResumenEspHTML.innerText = 0
+        $('input[name="resumen_esp"').on('keyup',()=>{
+            let cantidadPalabras = $('input[name="resumen_esp"').val().split(' ').length
+            cantidadPalabrasResumenEspHTML.innerText = cantidadPalabras
+        })
+        const cantidadPalabrasResumenInglesHTML = document.getElementById('cantidadPalabrasResumenInglesHTML')
+        cantidadPalabrasResumenInglesHTML.innerText = 0
+        $('input[name="resumen_ingles"').on('keyup',()=>{
+            let cantidadPalabras = $('input[name="resumen_ingles"').val().split(' ').length
+            cantidadPalabrasResumenInglesHTML.innerText = cantidadPalabras
+        })
         $('#trabajo_form').on('submit', function (e) {
             e.preventDefault();    
             trabajo.items.tipo_trabajo = $('select[name="tipo_trabajo"]').val();
@@ -363,7 +380,6 @@ var trabajo={
             trabajo.items.resumen_ingles = $('input[name="resumen_ingles"]').val();
             trabajo.items.keywords = $('select[name="keyword"]').val();
             trabajo.items.curso = $('select[name="curso"]').val();
-
             var archivos = [];
             var archivos2 = [];
             var ext =[];
@@ -428,7 +444,7 @@ var trabajo={
                     trabajo.items.autores_ingreso.shift();
                 } 
             });
-
+            puedeEnviarse = false 
             if (contador == 0) {
                 var parameters = new FormData();
                 parameters.append('action', $('input[name="action"]').val());
@@ -439,14 +455,26 @@ var trabajo={
                 for (var i = 0; i < $('input[name="tabla"]').get(0).files.length; ++i) {
                     parameters.append('tablas', document.getElementById('id_tabla').files[i]);                    
                 }
-                if (trabajo.items.autores_ingreso.length >2) {
-                    message_error("Solo se pueden agregar dos autores de ingreso");
-                } else {
-                    submit_trabajo_with_ajax(window.location.pathname, 'Notificación', 'Si hay algún error al enviar el trabajo científico, por favor tomar captura al error y enviarlo al correo revistacolombiana@sccot.org.co junto con el trabajo científico y los datos solicitados en el formulario para que este pueda ser validado. Esto solo puede ser enviado en el rango de fechas de la convocatoria del curso. No se aceptan trabajos enviados después de esta fecha', parameters, function () {
-                    message_success("Trabajo registrado con exito!");
-                    location.href = '/';
-                });
+                if (trabajo.items.autores_ingreso.length > 2) {
+                    message_warning("Solo se pueden agregar dos autores de ingreso");
+                } 
+                else if (trabajo.items.titulo.split('').length > 150) {
+                    message_warning("¡Lo sentimos! Superaste el máximo de palabras en: (Título)");
                 }
-            }            
+                else if (trabajo.items.resumen_esp.split(' ').length > 4000) {
+                    message_warning("¡Lo sentimos! Superaste el máximo de palabras en: (Resumen Español)");
+                }
+                else if (trabajo.items.resumen_ingles.split(' ').length > 4000) {
+                    message_warning("¡Lo sentimos! Superaste el máximo de palabras en: (Resumen Ingles)");
+                }
+                else {
+                    submit_trabajo_with_ajax(window.location.pathname, 'Notificación', 'Si hay algún error al enviar el trabajo científico, por favor tomar captura al error y enviarlo al correo revistacolombiana@sccot.org.co junto con el trabajo científico y los datos solicitados en el formulario para que este pueda ser validado. Esto solo puede ser enviado en el rango de fechas de la convocatoria del curso. No se aceptan trabajos enviados después de esta fecha', parameters, function () {
+                        message_success("Trabajo registrado con éxito!");
+                        location.href = '/';
+                    });
+                }
+            }
+            
+               
         });
     });

@@ -26,4 +26,6 @@ urlpatterns = [
     path('Evaluador/',include('Evaluador.urls')),
     path('reporte/',include('reportes.urls')),
     path('Users/',include('usuario.urls')),
+    path('BibliotecaEposters/',include('BibliotecaEposters.urls')),
+
 ]

@@ -36,6 +36,23 @@ function message_error(obj) {
         icon: 'error'
     });
 }
+function message_warning(obj){
+    var html = '';
+    if (typeof (obj) === 'object') {
+        html = '<ul style="text-align: left;">';
+        $.each(obj, function (key, value) {
+            html += '<li>' + key + ': ' + value + '</li>';
+        });
+        html += '</ul>';
+    } else {
+        html = '<p>' + obj + '</p>';
+    }
+    Swal.fire({
+        title: 'Advertencia',
+        html: html,
+        icon: 'warning'
+    });
+}
 /* 
 Función para alerta de de success.
 */
