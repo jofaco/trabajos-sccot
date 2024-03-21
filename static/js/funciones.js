@@ -133,7 +133,7 @@ function submit_trabajo_with_ajax(url, title, content, parameters, callback) {
         title: title,
         icon: 'fa fa-info',
         content: content+
-        '<br><p> ¿Esta seguro de realizar el envío del trabajo?</p>',
+        '<h5> ¿Esta seguro de realizar el envío del trabajo?</h5>',
         columnClass: 'small',
         typeAnimated: true,
         cancelButtonClass: 'btn-primary',
@@ -141,8 +141,8 @@ function submit_trabajo_with_ajax(url, title, content, parameters, callback) {
         dragWindowBorder: false,
         buttons: {
             info: {
-                text: "Si",
-                btnClass: 'btn-primary',
+                text: "Estoy seguro",
+                btnClass: 'btn-success',
                 action: function () {
                     $.ajax({
                         url: url, //window.location.pathname
@@ -165,7 +165,7 @@ function submit_trabajo_with_ajax(url, title, content, parameters, callback) {
                 }
             },
             danger: {
-                text: "No",
+                text: "Cerrar",
                 btnClass: 'btn-red',
                 action: function () {
 
