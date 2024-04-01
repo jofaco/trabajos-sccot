@@ -109,7 +109,7 @@ DATABASES = {
         #'HOST':'localhost',
         #'PORT':'3306'
     }
-}
+}   
 
 
 # Password validation

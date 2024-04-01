@@ -36,7 +36,7 @@ function message_error(obj) {
         icon: 'error'
     });
 }
-/* function message_warning(obj){
+function message_warning(obj){
     var html = '';
     if (typeof (obj) === 'object') {
         html = '<ul style="text-align: left;">';
@@ -52,7 +52,7 @@ function message_error(obj) {
         html: html,
         icon: 'warning'
     });
-} */
+}
 /* 
 Función para alerta de de success.
 */
