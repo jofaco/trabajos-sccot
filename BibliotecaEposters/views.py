@@ -5,21 +5,21 @@ from BibliotecaEposters.vimeoAPI import cons_vim_api
 
 # Create your views here.
 
-def getList(request):
-    manuscritos = Manuscritos.objects.all()
+# def getList(request):
+#     manuscritos = Manuscritos.objects.all()
 
-    return render(request,'listadoEposters.html',{'manuscritos':manuscritos})
-def getListCapitulo(request,capitulo):
-    manuscritos = Manuscritos.objects.all()
-    response = cons_vim_api(846405674) 
+#     return render(request,'listadoEposters.html',{'manuscritos':manuscritos})
+# def getListCapitulo(request,capitulo):
+#     manuscritos = Manuscritos.objects.all()
+#     response = cons_vim_api(846405674) 
 
-    return render(request,'listadoEposters.html',{'manuscritos':manuscritos,'capitulo':capitulo,'video':response})
-def post():
-    return True
+#     return render(request,'listadoEposters.html',{'manuscritos':manuscritos,'capitulo':capitulo,'video':response})
+# def post():
+#     return True
 
-def getVideosVimeo():
-    response = cons_vim_api(846405674) 
-    return response
+# def getVideosVimeo():
+#     response = cons_vim_api(846405674) 
+#     return response
 
 
 
