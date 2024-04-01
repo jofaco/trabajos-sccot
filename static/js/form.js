@@ -455,21 +455,21 @@ var trabajo={
                 for (var i = 0; i < $('input[name="tabla"]').get(0).files.length; ++i) {
                     parameters.append('tablas', document.getElementById('id_tabla').files[i]);                    
                 }
-                //
+                // INTENTAR BORRAR DE A PEDAZOS DE LO QUE HABIA HECHO
                 if (trabajo.items.autores_ingreso.length > 2) {
-                    //message_warning("Solo se pueden agregar dos autores de ingreso");
+                    message_error("Solo se pueden agregar dos autores de ingreso");
                     alert("Solo se pueden agregar dos autores de ingreso");
                 } 
                 else if (trabajo.items.titulo.split('').length > 150) {
-                    //message_warning("¡Lo sentimos! Superaste el máximo de palabras en: (Título)");
+                    message_error("¡Lo sentimos! Superaste el máximo de palabras en: (Título)");
                     alert("¡Lo sentimos! Superaste el máximo de palabras en: (Título)")
                 }
                 else if (trabajo.items.resumen_esp.split(' ').length > 4000) {
-                    //message_warning("¡Lo sentimos! Superaste el máximo de palabras en: (Resumen Español)");
+                    message_error("¡Lo sentimos! Superaste el máximo de palabras en: (Resumen Español)");
                     alert("¡Lo sentimos! Superaste el máximo de palabras en: (Resumen Español)");
                 }
                 else if (trabajo.items.resumen_ingles.split(' ').length > 4000) {
-                    //message_warning("¡Lo sentimos! Superaste el máximo de palabras en: (Resumen Ingles)");
+                    message_error("¡Lo sentimos! Superaste el máximo de palabras en: (Resumen Ingles)");
                     alert("¡Lo sentimos! Superaste el máximo de palabras en: (Resumen Ingles)");
                 }
                 //
