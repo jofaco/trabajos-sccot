@@ -44,7 +44,7 @@ def email_confirmTC(nombre,correo,trabajo, curso):
         mensaje['To']=sent_to
         mensaje['Subject']="Trabajo científico Recibido."
         
-        content = render_to_string("emailConfirm.html", {'nombre': nombre, 'correosoporte':"revistacolombiana@sccot.org.co",'trabajo':trabajo, 'curso':curso})
+        content = render_to_string("emailConfirm.html", {'nombre': nombre, 'correosoporte':"publicaciones@sccot.org.co",'trabajo':trabajo, 'curso':curso})
         mensaje.attach(MIMEText(content,'html'))
         # Envio del mensaje
         mailServer.sendmail(settings.EMAIL_HOST_USER,
@@ -79,7 +79,7 @@ def send_emailEvaluador(nombre,usuario,password,correo,fecha_fin_eva,titulo):
         mensaje['To']=sent_to
         mensaje['Subject']="Evaluación Trabajo científico."
         
-        content = render_to_string("emailEval.html", {'nombre': nombre, 'usuario':usuario, 'password':password,'fecha_fin':fecha_fin_eva,'titulo':titulo,'link':'https://trabajos.sccot.org'+settings.LOGOUT_REDIRECT_URL,'correosporte':'revistacolombiana@sccot.org.co'})
+        content = render_to_string("emailEval.html", {'nombre': nombre, 'usuario':usuario, 'password':password,'fecha_fin':fecha_fin_eva,'titulo':titulo,'link':'https://trabajos.sccot.org'+settings.LOGOUT_REDIRECT_URL,'correosporte':'publicaciones@sccot.org.co'})
         mensaje.attach(MIMEText(content,'html'))
         # Envio del mensaje
         mailServer.sendmail(settings.EMAIL_HOST_USER,
@@ -113,7 +113,7 @@ def send_emailEvaluador2(nombre,usuario,password,correo,fecha_fin_eva,titulo):
         mensaje['To']=sent_to
         mensaje['Subject']="Evaluación Trabajo científico."
         
-        content = render_to_string("emailEval2.html", {'nombre': nombre, 'usuario':usuario,'password':password,'fecha_fin':fecha_fin_eva,'titulo':titulo,'link':'https://trabajos.sccot.org'+settings.LOGOUT_REDIRECT_URL,'correosporte':'revistacolombiana@sccot.org.co'})
+        content = render_to_string("emailEval2.html", {'nombre': nombre, 'usuario':usuario,'password':password,'fecha_fin':fecha_fin_eva,'titulo':titulo,'link':'https://trabajos.sccot.org'+settings.LOGOUT_REDIRECT_URL,'correosporte':'publicaciones@sccot.org.co'})
         mensaje.attach(MIMEText(content,'html'))
         # Envio del mensaje
         mailServer.sendmail(settings.EMAIL_HOST_USER,

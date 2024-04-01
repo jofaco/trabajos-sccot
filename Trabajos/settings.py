@@ -169,6 +169,6 @@ EMAIL_HOST = 'smtp.googlemail.com'
 EMAIL_PORT = 587
 #EMAIL_HOST_USER = 'wilmerpb30@gmail.com'#←correo de pruebas. Poner correo de sccot
 #EMAIL_HOST_PASSWORD = 'teamlduzaplgebvc'#poner password de sccot
-EMAIL_HOST_USER = 'revistacolombiana@sccot.org.co'
+EMAIL_HOST_USER = 'publicaciones@sccot.org.co'
 EMAIL_HOST_PASSWORD = 'Public@2023'
 EMAIL_USE_TLS = True
