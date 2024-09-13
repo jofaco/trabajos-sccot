@@ -12,13 +12,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 # Configuración de la base de datos
-db = SQLDatabase.from_uri("mysql+mysqlconnector://root:vcc2022*WP@localhost:3306/trabajos")
+#db = SQLDatabase.from_uri("mysql+mysqlconnector://root:vcc2022*WP@localhost:3306/trabajos")
 
 # Configuración del modelo
-api_key = os.getenv('OPENAI_API_KEY')
+""" api_key = os.getenv('OPENAI_API_KEY')
 os.environ["OPENAI_API_KEY"] = api_key
 llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
-cadena = SQLDatabaseChain.from_llm(llm=llm, db=db, verbose=False)
+cadena = SQLDatabaseChain.from_llm(llm=llm, db=db, verbose=False) """
 
 formato = """
 Data una pregunta del usuario:
@@ -32,7 +32,7 @@ Data una pregunta del usuario:
 #{question}
 """
 # FALTA COLOCAR HEADER Y MIRAR SI PODEMOS PROPORCIONAR LINK DE LOS TRABAJOS
-class PreguntarChatGPT(LoginRequiredMixin, IsSuperuserMixin, View):
+""" class PreguntarChatGPT(LoginRequiredMixin, IsSuperuserMixin, View):
     template_name = 'preguntarChatGPT.html'
 
     @method_decorator(csrf_exempt)
@@ -91,3 +91,4 @@ class PreguntarChatGPT(LoginRequiredMixin, IsSuperuserMixin, View):
         # Actualizar el contexto con cualquier otro dato
         context.update(kwargs)
         return context
+ """
