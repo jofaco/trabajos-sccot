@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'reportes',
     'usuario',
     'BibliotecaEposters',
-     'ChatIA'
+    #'ChatIA'
 ]
 
 MIDDLEWARE = [
