@@ -19,13 +19,13 @@ from langchain_openai import ChatOpenAI
 from langchain_experimental.sql import SQLDatabaseChain """
 import os
 from django.http import HttpResponse
-from dotenv import load_dotenv
-env_path = Path(__file__).resolve().parent.parent / '.env'
-load_dotenv(dotenv_path=env_path)
+#from dotenv import load_dotenv
+#env_path = Path(__file__).resolve().parent.parent / '.env'
+#load_dotenv(dotenv_path=env_path)
 #Configuración de la base de datos
-
+os.environ["OPENAI_API_KEY"] = ''
+#db = SQLDatabase.from_uri("mysql+mysqlconnector://root:vcc2022*WP@localhost:3307/trabajos")
 #Configuración del modelo
-
 
 #llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
 #cadena = SQLDatabaseChain.from_llm(llm=llm, db=db, verbose=False)
