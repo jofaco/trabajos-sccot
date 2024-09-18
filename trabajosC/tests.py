@@ -6,7 +6,7 @@ def ppt_to_pdf(pptx_file_path, pdf_file_path):
     pptx_file = OfficeToPdf('project_public_5697cc3601ebe170a2268b01fbb87196_7LtLPd51b5090b8c5b06ea21af86aee9cea95', verify_ssl=True, proxies=None)
     # Carga el archivo a convertir
     pptx_file.add_file(pptx_file_path)
-    pptx_file.debug = False
+    pptx_file.debug = True
     pptx_file.set_output_folder(pdf_file_path)
 
     pptx_file.execute()

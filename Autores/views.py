@@ -187,3 +187,29 @@ class AutoresListView(LoginRequiredMixin,IsSuperuserMixin, ListView):
         autores = Autores.objects.all().defer( "especialidad","direccion")
         context['autores'] = autores
         return context
+class AutorDetailView(LoginRequiredMixin, IsSuperuserMixin, ListView):
+    ''' Clase ListView para listar los autores por su ID. '''
+
+    model = Autores
+    template_name = 'list_autores.html'
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Autor'
+        context['list_url'] = reverse_lazy('autor_list')
+
+        autor_id = self.kwargs.get('id')  # Obtén el id del autor desde la URL
+        if autor_id:
+            try:
+                autor = Autores.objects.defer("especialidad", "direccion").get(id=autor_id)
+                context['autores'] = [autor]
+            except Autores.DoesNotExist:
+                context['autores'] = []
+        else:
+            context['autores'] = []
+
+        return context

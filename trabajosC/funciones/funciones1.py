@@ -19,7 +19,7 @@ def convert_to_pdf_wd(input_docx, out_folder,new_name):
     manus_file = OfficeToPdf('project_public_5697cc3601ebe170a2268b01fbb87196_7LtLPd51b5090b8c5b06ea21af86aee9cea95', verify_ssl=True, proxies=None)
     # Carga el archivo a convertir
     manus_file.add_file(input_docx)
-    manus_file.debug = False
+    manus_file.debug = True
     manus_file.set_output_folder(out_folder)
     manus_file.execute()
     manus_file.download()    
