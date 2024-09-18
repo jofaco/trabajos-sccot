@@ -14,21 +14,32 @@ from django.contrib import messages
 from usuario.mixins import IsSuperuserMixin
 
 #IA
-""" from langchain_community.utilities import SQLDatabase
+from langchain_community.utilities import SQLDatabase
 from langchain_openai import ChatOpenAI
-from langchain_experimental.sql import SQLDatabaseChain """
-#import os
+from langchain_experimental.sql import SQLDatabaseChain
+import os
 from django.http import HttpResponse
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 
-#load_dotenv()
+load_dotenv()
 #Configuración de la base de datos
 
 #Configuración del modelo
+db = SQLDatabase.from_uri("mysql+mysqlconnector://root:vcc2022*WP@localhost:3306/trabajos")
 
 
-#llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
-#cadena = SQLDatabaseChain.from_llm(llm=llm, db=db, verbose=False)
+llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
+cadena = SQLDatabaseChain.from_llm(llm=llm, db=db, verbose=False)
+
+formato = "Dada una pregunta del usuario:\n" \
+          "1. Crea una consulta SQL para MySQL.\n" \
+          "2. Elimina las marcas de código y asegúrate de que la consulta esté correctamente formateada.\n" \
+          "3. Revisa los resultados.\n" \
+          "4. Devuelve el dato en HTML organizado usando estilos Bootstrap.\n" \
+          "5. Si vas a mostrar datos sobre trabajos, siempre incluye un link con la siguiente dirección: https://trabajos.sccot.org/Detalle_Trabajo/idTrabajo, donde `idTrabajo` lo vas a reemplazar por el id del trabajo.\n" \
+          "6. Si vas a mostrar datos sobre autores, siempre incluye un link con la siguiente dirección: https://trabajos.sccot.org/Autor/detalleAutor/idAutor, donde `idAutor` lo vas a reemplazar por el id del autor.\n" \
+          "7. Siempre que se hable de trabajos o autores incluye link.\n" \
+          "#{question}"
 
 
 #7. si la consulta involucra datos de usuarios como (contraseña, username, password, is_superuser) retorna un mensaje indicando que no se pueden mostrar datos de usuarios
@@ -50,9 +61,11 @@ class PreguntarChatGPT(LoginRequiredMixin, IsSuperuserMixin, View):
 
         if pregunta:
             """ consulta_sql = formato.format(question=pregunta) """
+            consulta_sql = formato.format(question=pregunta)
+
             try:
                 # Ejecuta la consulta
-                #resultado = cadena.run(consulta_sql)
+                resultado = cadena.run(consulta_sql)
                 
                 # Guardar la pregunta y la respuesta en la sesión
                 preguntas = request.session.get('preguntas', [])
