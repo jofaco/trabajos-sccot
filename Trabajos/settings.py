@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'Evaluador',
     'reportes',
     'usuario',
-    'BibliotecaEposters'
+    'BibliotecaEposters',
+    'Chatia'
 ]
 
 MIDDLEWARE = [
