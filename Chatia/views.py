@@ -23,7 +23,8 @@ from django.http import HttpResponse
 #env_path = Path(__file__).resolve().parent.parent / '.env'
 #load_dotenv(dotenv_path=env_path)
 #Configuración de la base de datos
-os.environ["OPENAI_API_KEY"] = ''
+secoundKay = '9DrUOBaKjRfeLX4XTJcG'
+os.environ["OPENAI_API_KEY"] = 'sk-proj-blfbEtSvbbLI4famkcrWT3BlbkFJ' + secoundKay
 #db = SQLDatabase.from_uri("mysql+mysqlconnector://root:vcc2022*WP@localhost:3307/trabajos")
 #Configuración del modelo
 
