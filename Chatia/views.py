@@ -28,10 +28,14 @@ secoundKay = '9DrUOBaKjRfeLX4XTJcG'
 os.environ["OPENAI_API_KEY"] = 'sk-proj-blfbEtSvbbLI4famkcrWT3BlbkFJ' + secoundKay
 #db = SQLDatabase.from_uri("mysql+mysqlconnector://root:vcc2022*WP@localhost:3306/trabajos")
 #Configuración del modelo
-django_db_conn = connections['default']
+db_uri = "mysql+mysqlconnector://root:vcc2022*WP@localhost:3306/trabajos"
+#db_uri = "mysql+mysqlconnector://root2:123@localhost:3306/trabajostestmarlong1"
+
+# Crear el objeto SQLDatabase usando la URI
+db = SQLDatabase.from_uri(db_uri)
 llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
 #cadena = SQLDatabaseChain.from_llm(llm=llm, db=db, verbose=False)
-cadena = SQLDatabaseChain.from_llm(llm=llm, db=django_db_conn, verbose=False)
+cadena = SQLDatabaseChain.from_llm(llm=llm, db=db, verbose=False)
 
 formato = """
 Data una pregunta del usuario:
