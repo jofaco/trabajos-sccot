@@ -28,7 +28,7 @@ secoundKay = '9DrUOBaKjRfeLX4XTJcG'
 os.environ["OPENAI_API_KEY"] = 'sk-proj-blfbEtSvbbLI4famkcrWT3BlbkFJ' + secoundKay
 #db = SQLDatabase.from_uri("mysql+mysqlconnector://root:vcc2022*WP@localhost:3306/trabajos")
 #Configuración del modelo
-db_uri = "mysql+mysqlconnector://root:vcc2022*WP@trabajos.sccot.org:3306/trabajos"
+db_uri = "mysql+mysqlconnector://root:vcc2022*WP@localhost:3306/trabajos"
 #db_uri = "mysql+mysqlconnector://root2:123@localhost:3306/trabajostestmarlong1"
 
 # Crear el objeto SQLDatabase usando la URI
