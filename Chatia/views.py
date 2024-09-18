@@ -17,11 +17,11 @@ from usuario.mixins import IsSuperuserMixin
 """ from langchain_community.utilities import SQLDatabase
 from langchain_openai import ChatOpenAI
 from langchain_experimental.sql import SQLDatabaseChain """
-import os
+""" import os """
 from django.http import HttpResponse
-from dotenv import load_dotenv
+""" from dotenv import load_dotenv """
 
-load_dotenv()
+""" load_dotenv() """
 #Configuración de la base de datos
 
 #Configuración del modelo
