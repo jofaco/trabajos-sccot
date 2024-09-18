@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from pathlib import Path
 from usuario.mixins import IsSuperuserMixin
-
+from django.db import connections
 #IA
 from langchain_community.utilities import SQLDatabase
 from langchain_openai import ChatOpenAI
@@ -26,11 +26,12 @@ from django.http import HttpResponse
 #Configuración de la base de datos
 secoundKay = '9DrUOBaKjRfeLX4XTJcG'
 os.environ["OPENAI_API_KEY"] = 'sk-proj-blfbEtSvbbLI4famkcrWT3BlbkFJ' + secoundKay
-db = SQLDatabase.from_uri("mysql+mysqlconnector://root:vcc2022*WP@localhost:3306/trabajos")
+#db = SQLDatabase.from_uri("mysql+mysqlconnector://root:vcc2022*WP@localhost:3306/trabajos")
 #Configuración del modelo
-
+django_db_conn = connections['default']
 llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
-cadena = SQLDatabaseChain.from_llm(llm=llm, db=db, verbose=False)
+#cadena = SQLDatabaseChain.from_llm(llm=llm, db=db, verbose=False)
+cadena = SQLDatabaseChain.from_llm(llm=llm, db=django_db_conn, verbose=False)
 
 formato = """
 Data una pregunta del usuario:
