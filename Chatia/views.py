@@ -70,7 +70,7 @@ class PreguntarChatGPT(LoginRequiredMixin, IsSuperuserMixin, View):
             consulta_sql = formato.format(question=pregunta)
             try:
                 # Ejecuta la consulta
-                #resultado = cadena.run(consulta_sql)
+                resultado = cadena.run(consulta_sql)
                 
                 # Guardar la pregunta y la respuesta en la sesión
                 preguntas = request.session.get('preguntas', [])
