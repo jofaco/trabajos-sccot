@@ -10,18 +10,18 @@ from django.shortcuts import  redirect, render
 from usuario.mixins import IsSuperuserMixin
 from django.contrib.auth.models import User
 from django.contrib import messages
-
+from pathlib import Path
 from usuario.mixins import IsSuperuserMixin
 
 #IA
 """ from langchain_community.utilities import SQLDatabase
 from langchain_openai import ChatOpenAI
 from langchain_experimental.sql import SQLDatabaseChain """
-""" import os """
+import os
 from django.http import HttpResponse
-""" from dotenv import load_dotenv """
-
-""" load_dotenv() """
+from dotenv import load_dotenv
+env_path = Path(__file__).resolve().parent.parent / '.env'
+load_dotenv(dotenv_path=env_path)
 #Configuración de la base de datos
 
 #Configuración del modelo
