@@ -27,6 +27,5 @@ urlpatterns = [
     path('reporte/',include('reportes.urls')),
     path('Users/',include('usuario.urls')),
     path('BibliotecaEposters/',include('BibliotecaEposters.urls')),
-    path('preguntarChatGPT/',include('ChatIA.urls')),
 
 ]

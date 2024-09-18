@@ -12,7 +12,6 @@ urlpatterns = [
     path('designarEvaluador/<int:pk>/',views.designarEvaluador,name='designarEvaluador'),
     path('eliminarEvaluador/<int:pk>/',views.eliminarEvaluador,name='eliminarEvaluador'),
     path('lista/', views.AutoresListView.as_view(), name='autor_list'),
-    path('detalleAutor/<int:id>/', views.AutorDetailView.as_view(), name='autorDetalle'),
 
 
 ]

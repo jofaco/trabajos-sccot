@@ -266,7 +266,7 @@ class TablasForm(ModelForm):
             'tabla' : 'Otros',
         }
         widgets = {          
-            'tabla':forms.FileInput(attrs={'class': 'form-control','multiple':True}),
+            'tabla':forms.FileInput(attrs={'class': 'form-control'}),
             
         }
 
@@ -279,8 +279,8 @@ class Trabajo_AutoresForm(ModelForm):
             'autor' : 'Autores',
         }
         widgets = {          
-            'trabajo':forms.Select(attrs={'class': 'form-control select2','multiple':True}),
-            'autor':forms.Select(attrs={'class': 'form-control select2','multiple':True}),
+            'trabajo':forms.Select(attrs={'class': 'form-control select2'}),
+            'autor':forms.Select(attrs={'class': 'form-control select2'}),
             
         }
 
@@ -293,8 +293,8 @@ class Trabajo_AutoresINForm(ModelForm):
             'autorIN' : 'Autores para Ingreso',
         }
         widgets = {          
-            'trabajo':forms.Select(attrs={'class': 'form-control select2','multiple':True}),
-            'autorIN':forms.Select(attrs={'class': 'form-control select2','multiple':True}),
+            'trabajo':forms.Select(attrs={'class': 'form-control select2'}),
+            'autorIN':forms.Select(attrs={'class': 'form-control select2'}),
             
         }
 
@@ -308,8 +308,8 @@ class Trabajo_InstitucionesForm(ModelForm):
             'institucion' : 'Otras instituciones',
         }
         widgets = {          
-            'trabajo':forms.Select(attrs={'class': 'form-control select2','multiple':True}),
-            'institucion':forms.Select(attrs={'class': 'form-control select2','multiple':True}),  
+            'trabajo':forms.Select(attrs={'class': 'form-control select2'}),
+            'institucion':forms.Select(attrs={'class': 'form-control select2'}),  
         }
 
 class Trabajo_PalabrasForm(ModelForm):
@@ -321,8 +321,8 @@ class Trabajo_PalabrasForm(ModelForm):
             'palabra' : 'Palabras Claves',
         }
         widgets = {          
-            'trabajo':forms.Select(attrs={'class': 'form-control select2','multiple':True}),
-            'palabra':forms.Select(attrs={'class': 'form-control select2','multiple':True, 'readonly':True}),            
+            'trabajo':forms.Select(attrs={'class': 'form-control select2'}),
+            'palabra':forms.Select(attrs={'class': 'form-control select2', 'readonly':True}),            
         }
 
 class Trabajo_KeywordsForm(ModelForm):
@@ -334,8 +334,8 @@ class Trabajo_KeywordsForm(ModelForm):
             'keyword' : 'Keywords',
         }
         widgets = {          
-            'trabajo':forms.Select(attrs={'class': 'form-control select2','multiple':True}),
-            'keyword':forms.Select(attrs={'class': 'form-control select2','multiple':True, 'readonly':True}),            
+            'trabajo':forms.Select(attrs={'class': 'form-control select2'}),
+            'keyword':forms.Select(attrs={'class': 'form-control select2', 'readonly':True}),            
         }
 
 class EvaluadorTrabajoForm(ModelForm):
