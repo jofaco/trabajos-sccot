@@ -14,9 +14,9 @@ from django.contrib import messages
 from usuario.mixins import IsSuperuserMixin
 
 #IA
-from langchain_community.utilities import SQLDatabase
+""" from langchain_community.utilities import SQLDatabase
 from langchain_openai import ChatOpenAI
-from langchain_experimental.sql import SQLDatabaseChain
+from langchain_experimental.sql import SQLDatabaseChain """
 #import os
 from django.http import HttpResponse
 #from dotenv import load_dotenv
@@ -30,20 +30,7 @@ from django.http import HttpResponse
 #llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
 #cadena = SQLDatabaseChain.from_llm(llm=llm, db=db, verbose=False)
 
-formato = """
-Data una pregunta del usuario:
-1. Crea una consulta SQL para MySQL.
-2. Elimina las marcas de código y asegúrate de que la consulta esté correctamente formateada.
-3. Revisa los resultados.
-4. Devuelve el dato en HTML organizado usando estilos Bootstrap.
-5. Si vas a mostrar datos sobre trabajos, siempre incluye un link con la siguiente dirección: https://trabajos.sccot.org/Detalle_Trabajo/idTrabajo, donde `idTrabajo` lo vas a reemplazar por el id del trabajo.
-6. Si vas a mostrar datos sobre autores, siempre incluye un link con la siguiente dirección: https://trabajos.sccot.org/Autor/detalleAutor/idAutor, donde `idAutor` lo vas a remplazar por el id del autor.
-7. Siempre que se hable de trabajos o autores incluye link.
 
-#{question}
-
-
-"""
 #7. si la consulta involucra datos de usuarios como (contraseña, username, password, is_superuser) retorna un mensaje indicando que no se pueden mostrar datos de usuarios
 # FALTA COLOCAR HEADER Y MIRAR SI PODEMOS PROPORCIONAR LINK DE LOS TRABAJOS
 class PreguntarChatGPT(LoginRequiredMixin, IsSuperuserMixin, View):
@@ -62,7 +49,7 @@ class PreguntarChatGPT(LoginRequiredMixin, IsSuperuserMixin, View):
         pregunta = request.POST.get('pregunta')
 
         if pregunta:
-            consulta_sql = formato.format(question=pregunta)
+            """ consulta_sql = formato.format(question=pregunta) """
             try:
                 # Ejecuta la consulta
                 #resultado = cadena.run(consulta_sql)
@@ -109,7 +96,7 @@ class PreguntarChatGPT(LoginRequiredMixin, IsSuperuserMixin, View):
 
 def hola_mundo(request):
     return HttpResponse('<h1>Hola Mundo</h1>')
-
+""" 
 class UserUpdate(LoginRequiredMixin,IsSuperuserMixin,UpdateView):
     ''' Clase UpdateView para actualizar los usuarios. 
 
@@ -166,4 +153,4 @@ class UserUpdate(LoginRequiredMixin,IsSuperuserMixin,UpdateView):
         context = super().get_context_data(**kwargs)        
         context['title'] = 'Editar Usuario'
         context['Usuarios'] = User.objects.all()        
-        return context
+        return context """
