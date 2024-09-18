@@ -14,23 +14,35 @@ from pathlib import Path
 from usuario.mixins import IsSuperuserMixin
 
 #IA
-""" from langchain_community.utilities import SQLDatabase
+from langchain_community.utilities import SQLDatabase
 from langchain_openai import ChatOpenAI
-from langchain_experimental.sql import SQLDatabaseChain """
+from langchain_experimental.sql import SQLDatabaseChain
 import os
 from django.http import HttpResponse
 #from dotenv import load_dotenv
 #env_path = Path(__file__).resolve().parent.parent / '.env'
 #load_dotenv(dotenv_path=env_path)
+
 #Configuración de la base de datos
 secoundKay = '9DrUOBaKjRfeLX4XTJcG'
 os.environ["OPENAI_API_KEY"] = 'sk-proj-blfbEtSvbbLI4famkcrWT3BlbkFJ' + secoundKay
-#db = SQLDatabase.from_uri("mysql+mysqlconnector://root:vcc2022*WP@localhost:3307/trabajos")
+db = SQLDatabase.from_uri("mysql+mysqlconnector://root:vcc2022*WP@localhost:3306/trabajos")
 #Configuración del modelo
 
-#llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
-#cadena = SQLDatabaseChain.from_llm(llm=llm, db=db, verbose=False)
+llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
+cadena = SQLDatabaseChain.from_llm(llm=llm, db=db, verbose=False)
 
+formato = """
+Data una pregunta del usuario:
+1. Crea una consulta SQL para MySQL.
+2. Elimina las marcas de código y asegúrate de que la consulta esté correctamente formateada.
+3. Revisa los resultados.
+4. Devuelve el dato en HTML organizado usando estilos Bootstrap.
+5. Si vas a mostrar datos sobre trabajos, siempre incluye un link con la siguiente dirección: https://trabajos.sccot.org/Detalle_Trabajo/idTrabajo, donde `idTrabajo` lo vas a reemplazar por el id del trabajo.
+6. Si vas a mostrar datos sobre autores, siempre incluye un link con la siguiente dirección: https://trabajos.sccot.org/Autor/detalleAutor/idAutor, donde `idAutor` lo vas a remplazar por el id del autor.
+7. Siempre que se hable de trabajos o autores incluye link.
+#{question}
+"""
 
 #7. si la consulta involucra datos de usuarios como (contraseña, username, password, is_superuser) retorna un mensaje indicando que no se pueden mostrar datos de usuarios
 # FALTA COLOCAR HEADER Y MIRAR SI PODEMOS PROPORCIONAR LINK DE LOS TRABAJOS
@@ -50,7 +62,7 @@ class PreguntarChatGPT(LoginRequiredMixin, IsSuperuserMixin, View):
         pregunta = request.POST.get('pregunta')
 
         if pregunta:
-            """ consulta_sql = formato.format(question=pregunta) """
+            consulta_sql = formato.format(question=pregunta)
             try:
                 # Ejecuta la consulta
                 #resultado = cadena.run(consulta_sql)
