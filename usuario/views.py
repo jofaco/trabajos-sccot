@@ -56,6 +56,36 @@ class UserListView(LoginRequiredMixin,IsSuperuserMixin, ListView):
         context['usuarios'] = usuarios
         return context
 
+class UserDetailView(LoginRequiredMixin,IsSuperuserMixin, ListView):
+
+    model = User
+    template_name = 'usuario_detail.html'
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Usuario'
+        context['list_url'] = reverse_lazy('user:user_list')
+        #usuariosAll = User.objects.all()
+        #page = self.request.GET.get('page',1)
+        #pag = Paginator(usuariosAll,15)
+        #usuarios = pag.get_page(page)
+        usuario_id = self.kwargs.get('id')  # Obtén el id del autor desde la URL
+        print(usuario_id)
+        if usuario_id:
+            try:
+                usuario = User.objects.get(id=usuario_id)
+                print(usuario)
+                context['usuarios'] = [usuario]
+            except User.DoesNotExist:
+                context['usuarios'] = []
+        else:
+            context['usuarios'] = []
+        return context
+
 class UserUpdate(LoginRequiredMixin,IsSuperuserMixin,UpdateView):
     ''' Clase UpdateView para actualizar los usuarios. 
 

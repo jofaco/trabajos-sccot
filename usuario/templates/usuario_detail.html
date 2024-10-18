@@ -1,0 +1,197 @@
+{%  extends "base.html" %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+    <style>
+        #data td  {
+            vertical-align:middle;
+        }
+    </style>
+{% endblock %}
+{% block scripts %}
+<!--Fontawesome-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+<!---->
+    
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+
+
+{% endblock %}
+
+{% block content %}
+
+
+<div style="box-shadow: 0px 0px 20px gray;" class="mb-5">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <a class="navbar-brand text-light d-flex align-items-center justify-content-center" href="#">
+            <div>
+                <svg class="bg-success rounded" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                </svg>    
+            </div>
+            <a href="/admin">
+                <div class="mt-1">
+                  <p class="h4 text-light text-decoration-none"> Administrador </p>
+                </div>
+            </a>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+          </ul>
+              <div class="">
+                <div class="container botonesNav ">
+                    <div  role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" checked>
+                        <a class="btn btn-outline-light mt-1" for="btnradio6" href="{% url 'preguntarChatGPT' %}" >Consulta con IA ✨</a>
+                        
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                        <a class="btn btn-outline-light mt-1 d-none" for="btnradio4" href="{% url 'BibliotecaEposters:biblioteca_eposters_list' %}">Eposters</a>
+                        
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" >
+                        <a class="btn btn-outline-light" for="btnradio1" href="{% url 'autor_list'  %}">Autores</a>
+                      
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" >
+                        <a class="btn btn-outline-light" for="btnradio2" href="{% url 'inicio'  %}">Trabajos Principal</a>
+                      
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                        <a class="btn btn-outline-light" for="btnradio3" href="{% url 'inicio'  %}">Cursos</a>
+                
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" >
+                        <a class="btn btn-outline-light" for="btnradio2" href="{% url 'list_trabajos_m'  %}">Trabajos con archivos</a>
+                        
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off"checked>
+                        <a class="btn btn-outline-light" for="btnradio4" href="{% url 'user:user_list'  %}">Usuarios</a>
+                      
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" >
+                        <a class="btn btn-outline-light" for="btnradio5" href="{% url 'reportes'  %}">Reportes</a>
+                    </div>
+                </div>
+              </div>
+        </div>
+      </nav>
+</div>
+
+{% include 'messages.html' %}
+<div class="container-fluid" >
+   <!--  <div class="d-flex justify-content-between">
+        <div>
+        </div>
+        <div>
+            <form action="{% url 'user:user_list' %}" method="post" class="d-flex ">
+                {% csrf_token %}
+                <input type="text" class="form-control mx-2 border-bottom border-1 border-dark" placeholder="Buscar" id="userSearch" name="userSearch">
+                <button type="submit" class="btn btn-success">Enviar</button>
+            </form>
+                <a href="/Users/list/"><button type="button" class="btn btn-outline-dark float-right my-2">Quitar Filtro</button></a>
+        </div>
+    </div>
+    -->
+    <table class="table table-light" id="data">
+        <thead>
+            <tr>
+                <th >Nro</th>
+                <th >Username</th>
+                <th >Nombres</th>
+                <th >Apellidos</th>
+                <th >correo</th>
+                <th >Fecha de registro</th>
+                <th >Ultimo login</th>
+                <th >Activo</th>
+                <th >Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in usuarios %}
+    
+            <tr>
+                <td>{{object.id}}</td>
+                <td>{{object.username}}</td>
+                <td>{{object.first_name}}</td>
+                <td>{{object.last_name}}</td>
+                <td>{{object.email}}</td>
+                <td>{{object.date_joined}}</td>
+                <td>{{object.last_login}}</td>
+                <td>                    
+                    {% if object.is_active == 1 %}
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked disabled>
+                      </div>
+                    {% else %}
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" disabled>
+                      </div>
+                    {% endif %}
+                        
+                </td>
+                <td> 
+                        <button onclick="abrir_modal_editUser(`{% url 'user:user_update' object.id %}`)" class="btn btn-primary"> <i class="fa-solid fa-file-pen"></i></button>
+                        <button onclick="abrir_modal_deleteUser(`{% url 'user:user_delete' object.id %}`)" class="btn btn-danger"> <i class="fa-solid fa-trash-alt"></i></i></button>
+                    
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<!--
+    <div class="d-flex justify-content-end mx-3">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if usuarios.has_previous %}
+                <li class="page-item border border-primary rounded">
+                    <a class="page-link" href="/Users/list/?page={{usuarios.previous_page_number}}">Anterior</a>
+                </li>
+            {% endif %}
+            {% for i in usuarios.paginator.page_range  %}
+                <li class="page-item ">
+                    <a class="page-link" href="/Users/list/?page={{i}}">{{i}}</a>
+                </li> 
+            {% endfor %}
+            {% if usuarios.has_next %}
+                <li class="page-item border border-primary rounded">
+                    <a class="page-link" href="/Users/list/?page={{usuarios.next_page_number}}">Siguiente</a>
+                </li>
+            {% endif %}
+            </ul>
+        </nav>
+</div>
+-->
+
+<div class="modal fade contenedor" id="edituser_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
+<div class="modal fade contenedor" id="deleteUser_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="application/javascript">
+    
+    $('#data').DataTable({
+        responsive: true,
+        autoWidth: false,
+        /*info:false,
+        paging:false,
+        searching:false
+    |   */
+    });
+    function abrir_modal_editUser(url){
+        $('#edituser_Modal').load(url, function (){
+            $(this).modal('show');
+        });
+    }
+    function abrir_modal_deleteUser(url){
+        $('#deleteUser_Modal').load(url, function (){
+            $(this).modal('show');
+        });
+    }
+</script>
+{% endblock %}

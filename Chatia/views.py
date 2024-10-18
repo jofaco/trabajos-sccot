@@ -28,25 +28,25 @@ secoundKay = '9DrUOBaKjRfeLX4XTJcG'
 os.environ["OPENAI_API_KEY"] = 'sk-proj-blfbEtSvbbLI4famkcrWT3BlbkFJ' + secoundKay
 #db = SQLDatabase.from_uri("mysql+mysqlconnector://root:vcc2022*WP@localhost:3306/trabajos")
 #Configuración del modelo
-db_uri = "mysql+mysqlconnector://root:vcc2022*WP@localhost:3306/trabajos"
+db_uri = "mysql+mysqlconnector://root:vcc2022*WP@localhost:3307/trabajos"
 #db_uri = "mysql+mysqlconnector://root2:123@localhost:3306/trabajostestmarlong1"
 
 # Crear el objeto SQLDatabase usando la URI
 db = SQLDatabase.from_uri(db_uri)
 #llm = ChatOpenAI(temperature=0, model_name='gpt-4o-mini')
-llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
+llm = ChatOpenAI(temperature=0.5, model_name='gpt-3.5-turbo')
 #cadena = SQLDatabaseChain.from_llm(llm=llm, db=db, verbose=False)
 cadena = SQLDatabaseChain.from_llm(llm=llm, db=db, verbose=True)
 
 formato = """
 Data una pregunta del usuario:
-1. Crea una consulta SQL para MySQL.
+1. Crea una consulta simple SQL para MySQL.
 2. Elimina las marcas de código y asegúrate de que la consulta esté correctamente formateada.
 3. Revisa los resultados.
-4. Devuelve el dato en HTML organizado usando estilos Bootstrap.
-5. Si vas a mostrar datos sobre trabajos, siempre incluye un link con la siguiente dirección: https://trabajos.sccot.org/Detalle_Trabajo/idTrabajo, donde `idTrabajo` lo vas a reemplazar por el id del trabajo.
-6. Si vas a mostrar datos sobre autores, siempre incluye un link con la siguiente dirección: https://trabajos.sccot.org/Autor/detalleAutor/idAutor, donde `idAutor` lo vas a remplazar por el id del autor.
-7. Siempre que se hable de trabajos o autores incluye link con los parametros dichos en el punto 5 y 6.
+4. Si vas a mostrar datos sobre trabajos, siempre incluye un link con la siguiente dirección: https://trabajos.sccot.org/Detalle_Trabajo/idTrabajo, donde `idTrabajo` lo vas a reemplazar por el id del trabajo.
+5. Si vas a mostrar datos sobre autores, siempre incluye un link con la siguiente dirección: https://trabajos.sccot.org/Autor/detalleAutor/idAutor, donde `idAutor` lo vas a remplazar por el id del autor.
+6. Siempre que se hable de trabajos o autores incluye link con los parametros dichos en el punto 4 y 5.
+7. Devuelve el dato en HTML organizado usando estilos Bootstrap.
 #{question}
 """
 
